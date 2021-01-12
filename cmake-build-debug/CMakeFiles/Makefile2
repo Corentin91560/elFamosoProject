@@ -94,12 +94,12 @@ clean: CMakeFiles/elFamosoProject.dir/clean
 CMakeFiles/elFamosoProject.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target elFamosoProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target elFamosoProject"
 .PHONY : CMakeFiles/elFamosoProject.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/elFamosoProject.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/elFamosoProject.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/elFamosoProject.dir/rule

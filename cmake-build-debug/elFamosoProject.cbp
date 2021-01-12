@@ -80,6 +80,24 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Dessin.cpp">
+			<Option target="elFamosoProject"/>
+		</Unit>
+		<Unit filename="/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Dessin.h">
+			<Option target="elFamosoProject"/>
+		</Unit>
+		<Unit filename="/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Forme.cpp">
+			<Option target="elFamosoProject"/>
+		</Unit>
+		<Unit filename="/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Forme.h">
+			<Option target="elFamosoProject"/>
+		</Unit>
+		<Unit filename="/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Rectangle.cpp">
+			<Option target="elFamosoProject"/>
+		</Unit>
+		<Unit filename="/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Rectangle.h">
+			<Option target="elFamosoProject"/>
+		</Unit>
 		<Unit filename="/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/main.cpp">
 			<Option target="elFamosoProject"/>
 		</Unit>

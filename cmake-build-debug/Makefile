@@ -143,6 +143,87 @@ elFamosoProject/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/build
 .PHONY : elFamosoProject/fast
 
+Class/Dessin.o: Class/Dessin.cpp.o
+
+.PHONY : Class/Dessin.o
+
+# target to build an object file
+Class/Dessin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.o
+.PHONY : Class/Dessin.cpp.o
+
+Class/Dessin.i: Class/Dessin.cpp.i
+
+.PHONY : Class/Dessin.i
+
+# target to preprocess a source file
+Class/Dessin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.i
+.PHONY : Class/Dessin.cpp.i
+
+Class/Dessin.s: Class/Dessin.cpp.s
+
+.PHONY : Class/Dessin.s
+
+# target to generate assembly for a file
+Class/Dessin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.s
+.PHONY : Class/Dessin.cpp.s
+
+Class/Forme.o: Class/Forme.cpp.o
+
+.PHONY : Class/Forme.o
+
+# target to build an object file
+Class/Forme.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.o
+.PHONY : Class/Forme.cpp.o
+
+Class/Forme.i: Class/Forme.cpp.i
+
+.PHONY : Class/Forme.i
+
+# target to preprocess a source file
+Class/Forme.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.i
+.PHONY : Class/Forme.cpp.i
+
+Class/Forme.s: Class/Forme.cpp.s
+
+.PHONY : Class/Forme.s
+
+# target to generate assembly for a file
+Class/Forme.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.s
+.PHONY : Class/Forme.cpp.s
+
+Class/Rectangle.o: Class/Rectangle.cpp.o
+
+.PHONY : Class/Rectangle.o
+
+# target to build an object file
+Class/Rectangle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.o
+.PHONY : Class/Rectangle.cpp.o
+
+Class/Rectangle.i: Class/Rectangle.cpp.i
+
+.PHONY : Class/Rectangle.i
+
+# target to preprocess a source file
+Class/Rectangle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.i
+.PHONY : Class/Rectangle.cpp.i
+
+Class/Rectangle.s: Class/Rectangle.cpp.s
+
+.PHONY : Class/Rectangle.s
+
+# target to generate assembly for a file
+Class/Rectangle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/elFamosoProject.dir/build.make CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.s
+.PHONY : Class/Rectangle.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -179,6 +260,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... elFamosoProject"
+	@echo "... Class/Dessin.o"
+	@echo "... Class/Dessin.i"
+	@echo "... Class/Dessin.s"
+	@echo "... Class/Forme.o"
+	@echo "... Class/Forme.i"
+	@echo "... Class/Forme.s"
+	@echo "... Class/Rectangle.o"
+	@echo "... Class/Rectangle.i"
+	@echo "... Class/Rectangle.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

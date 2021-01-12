@@ -1,4 +1,7 @@
 #include <iostream>
+#include <list>
+#include "Class/Rectangle.h"
+#include "Class/Dessin.h"
 
 
 void affichemenu(){
@@ -32,6 +35,13 @@ void addformemenu(){
 }
 
 void selectforme(){
+    Rectangle rectangle = Rectangle(10,40,20,15,"pink");
+    std::vector<Forme> formes;
+    formes.push_back(rectangle);
+    Dessin dessin = Dessin(150,200,formes);
+    std::vector<Forme> forme = dessin.formes;
+    Rectangle rect1 = forme[0]; //rectangle
+
     int selection = 0;
     bool selectable = false;
     while (!selectable){
@@ -39,8 +49,8 @@ void selectforme(){
         std::cin >> selection;
         switch (selection) {
             case 1:
+                printf("%f",rectangle.getPosx());
                 selectable = true;
-//rectangle
                 break;
             case 2:
                 selectable = true;

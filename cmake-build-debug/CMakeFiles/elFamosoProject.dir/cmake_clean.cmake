@@ -1,4 +1,7 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.o"
+  "CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.o"
+  "CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.o"
   "CMakeFiles/elFamosoProject.dir/main.cpp.o"
   "elFamosoProject"
   "elFamosoProject.pdb"

@@ -90,17 +90,62 @@ CMakeFiles/elFamosoProject.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/elFamosoProject.dir/main.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/main.cpp -o CMakeFiles/elFamosoProject.dir/main.cpp.s
 
+CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.o: CMakeFiles/elFamosoProject.dir/flags.make
+CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.o: ../Class/Dessin.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.o -c /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Dessin.cpp
+
+CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Dessin.cpp > CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.i
+
+CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Dessin.cpp -o CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.s
+
+CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.o: CMakeFiles/elFamosoProject.dir/flags.make
+CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.o: ../Class/Forme.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.o -c /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Forme.cpp
+
+CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Forme.cpp > CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.i
+
+CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Forme.cpp -o CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.s
+
+CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.o: CMakeFiles/elFamosoProject.dir/flags.make
+CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.o: ../Class/Rectangle.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.o -c /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Rectangle.cpp
+
+CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Rectangle.cpp > CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.i
+
+CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/Class/Rectangle.cpp -o CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.s
+
 # Object files for target elFamosoProject
 elFamosoProject_OBJECTS = \
-"CMakeFiles/elFamosoProject.dir/main.cpp.o"
+"CMakeFiles/elFamosoProject.dir/main.cpp.o" \
+"CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.o" \
+"CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.o" \
+"CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.o"
 
 # External object files for target elFamosoProject
 elFamosoProject_EXTERNAL_OBJECTS =
 
 elFamosoProject: CMakeFiles/elFamosoProject.dir/main.cpp.o
+elFamosoProject: CMakeFiles/elFamosoProject.dir/Class/Dessin.cpp.o
+elFamosoProject: CMakeFiles/elFamosoProject.dir/Class/Forme.cpp.o
+elFamosoProject: CMakeFiles/elFamosoProject.dir/Class/Rectangle.cpp.o
 elFamosoProject: CMakeFiles/elFamosoProject.dir/build.make
 elFamosoProject: CMakeFiles/elFamosoProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable elFamosoProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/cpasmoi/Desktop/dev/cpp/elFamosoProject/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable elFamosoProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/elFamosoProject.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
