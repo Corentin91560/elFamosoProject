@@ -12,28 +12,29 @@
 
 class Rectangle : public Forme{
 private:
-    double posx{};
-    double posy{};
     int width{};
     int height{};
-    std::string fill;
 
 public:
+
     Rectangle();
 
-    Rectangle(double posx, double posy, int width, int height, const std::string &fill);
+    Rectangle( int width, int height);
 
-    double getPosx() const;
+    void setWidth(int width);
 
-    double getPosy() const;
+    void setHeight(int height);
 
-    int getWidth() const;
+    virtual ~Rectangle();
 
-    int getHeight() const;
+    void setPosx(int posx) override;
 
-    const std::string &getFill() const;
+    void setPosy(int posy) override;
 
-    Rectangle(Forme forme);
+    void setFill(const std::string &fill) override;
+
+    std::string getcontent() override;
+
 };
 
 

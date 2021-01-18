@@ -4,8 +4,25 @@
 
 #include "Dessin.h"
 
-Dessin::Dessin(double width, double height, const std::vector<Forme> &formes) {
-    this->width=width;
-    this->height=height;
-    this->formes=formes;
+Dessin::Dessin(const std::vector<Forme *> &formes, double height, double width) : formes(formes), height(height),
+                                                                                  width(width) {}
+
+double Dessin::getHeight() const {
+    return height;
 }
+
+double Dessin::getWidth() const {
+    return width;
+}
+
+void Dessin::setHeight(double height) {
+    Dessin::height = height;
+}
+
+void Dessin::setWidth(double width) {
+    Dessin::width = width;
+}
+
+Dessin::Dessin(const std::vector<Forme *> &formes) : formes(formes) {}
+
+
