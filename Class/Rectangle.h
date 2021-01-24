@@ -35,6 +35,10 @@ public:
 
     std::string getcontent() override;
 
+    std::string getsvgcontent() override;
+
+    std::string getjsoncontent() override;
+
 };
 
 

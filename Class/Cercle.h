@@ -29,6 +29,9 @@ public:
     int getRadius() const;
 
     std::string getcontent() override;
+    std::string getsvgcontent() override;
+    std::string getjsoncontent() override;
+
 
 };
 

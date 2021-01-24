@@ -49,3 +49,25 @@ std::string Rectangle::getcontent() {
     content+=std::to_string(posy);
     return content;
 }
+
+std::string Rectangle::getsvgcontent() {
+    std::string content;
+    content+="<rect x=\"";
+    content+=std::to_string(posx);
+    content+="\" y=\"";
+    content+=std::to_string(posy);
+    content+="\" width=\"";
+    content+=std::to_string(width);
+    content+="\" height=\"";
+    content+=std::to_string(height);
+    content+="\" fill=\"";
+    content+=fill;
+    content+="\" />\n";
+    return content;
+}
+
+std::string Rectangle::getjsoncontent() {
+    std::string content;
+    content+="\"rectangle\":{"
+             "\n\"width\":"+std::to_string(width)+",\n\"height\":"+std::to_string(height)+",\n\"posx\":"+std::to_string(posx)+",\n\"posy\":"+std::to_string(posy)+",\n\"fill\":"+fill+"}";
+}
