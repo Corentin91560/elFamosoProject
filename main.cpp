@@ -39,7 +39,7 @@ void addformemenu(){
     std::cout << "Cercle 2" << std::endl;
     std::cout << "Segment 3" << std::endl;
     std::cout << "Polygone 4" << std::endl;
-
+// TODO quit the menu
 }
 Rectangle createRectangle(){
     Rectangle rectangle;
@@ -204,6 +204,7 @@ void exporttosvg(Dessin currentDessin) {
     }
 
     outfile<<"</svg>";
+    //TODO app crash after out the svg
 }
 
 void saveasjson(Dessin dessin){

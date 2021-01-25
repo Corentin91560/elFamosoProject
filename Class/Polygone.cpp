@@ -34,7 +34,7 @@ std::string Polygone::getcontent(){
 
 std::string Polygone::getsvgcontent() {
     std::string content;
-    std::string listePointsSvg = "(";
+    std::string listePointsSvg;
 
     int i;
     for(i = 0; i < listePoints.size(); i++){
@@ -47,10 +47,8 @@ std::string Polygone::getsvgcontent() {
         listePointsSvg += std::to_string(point->getposY());
     }
 
-    listePointsSvg += ")";
-
     content+="<polyline points=\"";
-    content+=std::to_string(posx);
+    content+=listePointsSvg;
     content+="\" fill=\"";
     content+=fill;
     content+="\" />\n";
