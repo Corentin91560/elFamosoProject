@@ -11,12 +11,9 @@
 #include "Forme.h"
 
 class Polygone : public Forme{
-private:
-    std::vector<Point*> listePoints;//TODO faire le choix du nombre de points : taille tot = taille choisie + 1 pour le retour au pt de départ
-    //TODO faire le choix des coordonnées des points
-
-
 public:
+    std::vector<Point*> listePoints;//TODO faire le choix du nombre de points : taille tot = taille choisie + 1 pour le retour au pt de départ
+
     Polygone();
 
     virtual ~Polygone();
@@ -30,8 +27,10 @@ public:
     void setListePoints(std::vector<Point*> liste);
 
     std::string getcontent() override;
+    std::string getsvgcontent() override;
+    std::string getjsoncontent() override;
 
 };
 
 
-#endif //TEST_POLYGONE_H
+#endif //ELFAMOSOPROJECT_POLYGONE_H

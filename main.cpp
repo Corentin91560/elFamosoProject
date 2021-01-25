@@ -11,6 +11,7 @@
 
 void exporttosvg(Dessin currentDessin);
 
+//TODO : bloquer les erreurs d'entrées
 void affichemenu(){
     std::cout << "MENU : \n" << std::endl;
 

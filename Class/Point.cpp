@@ -18,3 +18,11 @@ std::string Point::getcontent(){
     content+=")";
     return content;
 }
+
+int Point::getposX(){
+    return posx;
+}
+
+int Point::getposY(){
+    return posy;
+}

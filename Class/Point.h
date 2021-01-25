@@ -16,9 +16,11 @@ private :
 public:
     Point(int x, int y);
 
-    std::string getcontent();
+    int getposX();
+    int getposY();
 
+    std::string getcontent();
 };
 
 
-#endif //TEST_POINT_H
+#endif //ELFAMOSOPROJECT_POINT_H

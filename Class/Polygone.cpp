@@ -6,9 +6,7 @@
 
 Polygone::Polygone() {}
 
-Polygone::~Polygone() {
-
-}
+Polygone::~Polygone() {}
 
 void Polygone::setPosx(int posx) {
     Polygone::posx = posx;
@@ -31,5 +29,37 @@ std::string Polygone::getcontent(){
     content+="Polygone avec ";
     content+=std::to_string(listePoints.size());
     content+=" cotés";
+    return content;
+}
+
+std::string Polygone::getsvgcontent() {
+    std::string content;
+    std::string listePointsSvg = "(";
+
+    int i;
+    for(i = 0; i < listePoints.size(); i++){
+        Point* point = Polygone::listePoints.at(i);
+        if(i != 0){
+            listePointsSvg += " ";
+        }
+        listePointsSvg += std::to_string(point->getposX());
+        listePointsSvg += ",";
+        listePointsSvg += std::to_string(point->getposY());
+    }
+
+    listePointsSvg += ")";
+
+    content+="<polyline points=\"";
+    content+=std::to_string(posx);
+    content+="\" fill=\"";
+    content+=fill;
+    content+="\" />\n";
+    return content;
+}
+
+std::string Polygone::getjsoncontent() {
+    std::string content;
+    //content+="\"cercle\":{"
+    //         "\n\"radius\":"+std::to_string(radius)+",\n\"posx\":"+std::to_string(posx)+",\n\"posy\":"+std::to_string(posy)+",\n\"fill\":"+fill+"}";
     return content;
 }
