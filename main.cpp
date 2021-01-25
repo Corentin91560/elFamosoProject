@@ -1,8 +1,10 @@
 #include <iostream>
 #include <list>
+#include <vector>
 #include "Class/Rectangle.h"
 #include "Class/Dessin.h"
 #include "Class/Cercle.h"
+#include "Class/Polygone.h"
 
 
 void affichemenu(){
@@ -80,6 +82,37 @@ Cercle createCercle(){
     cercle.setFill(fill);
     return cercle;
 }
+
+Polygone createPolygone(){
+    Polygone polygone;
+    std::vector<Point*> listePoints;
+    int nbPoints;
+    std::string fill;
+    std::cout << "MENU CREATION POLYGONE : \n" << std::endl;
+    std::cout << "Nombre de points:" << std::endl;
+    std::cin >> nbPoints;
+    std::cout << "fill :" << std::endl;
+    std::cin >> fill;
+    polygone.setFill(fill);
+
+    int i = 0;
+    while (i < nbPoints){
+        int x;
+        int y;
+        std::cout << "Coordonnées du point n°" << i+1 << std::endl;
+        std::cout << "x :" << std::endl;
+        std::cin >> x;
+        std::cout << "y :" << std::endl;
+        std::cin >> y;
+        Point* point = new Point(x, y);
+        listePoints.push_back(point);
+        i++;
+    }
+    polygone.setListePoints(listePoints);
+    return polygone;
+
+}
+
 void describeDessin(Dessin &dessin){
     std::cout<<"Hauteur du dessin : "<<dessin.getHeight()<<"et Largueur : "<<dessin.getWidth()<<std::endl;
     printf("%lu",dessin.formes.size());
@@ -109,7 +142,7 @@ Dessin selectforme(Dessin dessin){
 //segment
                 break;
             case 4:
-
+                dessin.formes.push_back(new Polygone(createPolygone()));
 //polygone
                 break;
             case 5:
