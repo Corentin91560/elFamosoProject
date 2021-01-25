@@ -22,6 +22,8 @@ public:
 
     virtual void setFill(const std::string &fill) = 0;
     virtual std::string getcontent()=0;
+    virtual std::string getsvgcontent()=0;
+    virtual std::string getjsoncontent()=0;
 
 };
 

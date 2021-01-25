@@ -6,6 +6,10 @@
 #include "Class/Cercle.h"
 #include "Class/Polygone.h"
 
+#include <fstream>
+
+
+void exporttosvg(Dessin currentDessin);
 
 void affichemenu(){
     std::cout << "MENU : \n" << std::endl;
@@ -114,8 +118,7 @@ Polygone createPolygone(){
 }
 
 void describeDessin(Dessin &dessin){
-    std::cout<<"Hauteur du dessin : "<<dessin.getHeight()<<"et Largueur : "<<dessin.getWidth()<<std::endl;
-    printf("%lu",dessin.formes.size());
+    std::cout<<"Hauteur du dessin : "<<dessin.getHeight()<<" et Largueur : "<<dessin.getWidth()<<std::endl;
     for (int i = 0; i < dessin.formes.size(); ++i) {
         std::cout<<dessin.formes[i]->getcontent()<<std::endl;
     }
@@ -123,7 +126,6 @@ void describeDessin(Dessin &dessin){
 
 Dessin selectforme(Dessin dessin){
 
-    printf("%lu",dessin.formes.size());
 
     int selection = 0;
     while (true){
@@ -149,7 +151,6 @@ Dessin selectforme(Dessin dessin){
                 describeDessin(dessin);
                 break;
             case 9:
-                printf("%lu",dessin.formes.size());
                 return dessin;
 //polygone
             default:
@@ -160,7 +161,6 @@ Dessin selectforme(Dessin dessin){
 }
 
 void editionmenu(Dessin &dessin){
-    printf("test %lu debut",dessin.formes.size());
 
     int selection = 0;
     bool selectable = false;
@@ -169,16 +169,14 @@ void editionmenu(Dessin &dessin){
         std::cin >> selection;
         switch (selection) {
             case 1:
-                printf("test %lu end1",dessin.formes.size());
                 dessin = Dessin(selectforme(dessin));
                 break;
             case 2:
                 selectable = true;
-                printf("ok 2");
                 break;
             case 3:
                 selectable = true;
-                printf("ok 3");
+                exporttosvg(dessin);
                 break;
             case 9:
                 selectable = true;
@@ -189,6 +187,36 @@ void editionmenu(Dessin &dessin){
                 break;
         }
     }
+}
+
+void exporttosvg(Dessin currentDessin) {
+    std::string filename;
+    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
+    std::cin>>filename;
+    std::ofstream outfile(filename+".svg");
+    outfile << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+               "<svg width=\""<<currentDessin.width<<"\" height=\""<<currentDessin.height<<"\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+               "<rect fill=\"#fff\" stroke=\"#000\" x=\"0\" y=\"0\" width=\""<<currentDessin.width<<"\" height=\""<<currentDessin.height<<"\"/>\n"<<std::endl;
+
+    for (int i = 0; i < currentDessin.formes.size(); ++i) {
+        outfile<<currentDessin.formes[i]->getsvgcontent();
+    }
+
+    outfile<<"</svg>";
+}
+
+void saveasjson(Dessin dessin){
+    std::string filename;
+    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
+    std::cin>>filename;
+    std::ofstream outfile(filename+".json");
+    outfile << "{"<<std::endl;
+
+    for (int i = 0; i < dessin.formes.size(); ++i) {
+        outfile<<dessin.formes[i]->getsvgcontent();
+    }
+
+    outfile<<"}";
 }
 
 Dessin affichermenucreation(Dessin &dessin){
@@ -225,11 +253,10 @@ void startprogram(){
                 break;
             case 2:
                 selectable = true;
-                printf("ok 2");
                 break;
             case 3:
                 selectable = true;
-                printf("ok 3");
+
                 break;
             case 9:
                 selectable = true;

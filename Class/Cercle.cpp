@@ -42,3 +42,24 @@ std::string Cercle::getcontent() {
     content+=std::to_string(posy);
     return content;
 }
+
+std::string Cercle::getsvgcontent() {
+    std::string content;
+    content+="<circle cx=\"";
+    content+=std::to_string(posx);
+    content+="\" cy=\"";
+    content+=std::to_string(posy);
+    content+="\" r=\"";
+    content+=std::to_string(radius);
+    content+="\" fill=\"";
+    content+=fill;
+    content+="\" />\n";
+    return content;
+}
+
+std::string Cercle::getjsoncontent() {
+    std::string content;
+    content+="\"cercle\":{"
+             "\n\"radius\":"+std::to_string(radius)+",\n\"posx\":"+std::to_string(posx)+",\n\"posy\":"+std::to_string(posy)+",\n\"fill\":"+fill+"}";
+    return content;
+}
