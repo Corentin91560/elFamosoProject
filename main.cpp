@@ -258,22 +258,6 @@ void editionmenu(Dessin &dessin){
     }
 }
 
-
-void saveasjson(Dessin dessin){
-    std::string filename;
-    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
-    std::cin>>filename;
-    std::ofstream outfile(filename+".json");
-    outfile << "{"<<std::endl;
-
-    for (int i = 0; i < dessin.formes.size(); ++i) {
-        outfile<<dessin.formes[i]->getjsoncontent();
-    }
-
-    outfile<<"}";
-    //TODO app crash after save
-}
-
 std::string getValue(const std::string& property){
     std::istringstream iss2(property);
     std::string mot;
