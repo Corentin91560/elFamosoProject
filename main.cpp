@@ -1,17 +1,15 @@
 #include <iostream>
 #include <list>
-#include <vector>
 #include "Class/Rectangle.h"
 #include "Class/Dessin.h"
 #include "Class/Cercle.h"
 #include "Class/Polygone.h"
-
+#include "Class/Segment.h"
 #include <fstream>
+#include <string>
 
 
-void exporttosvg(Dessin currentDessin);
 
-//TODO : bloquer les erreurs d'entrées
 void affichemenu(){
     std::cout << "MENU : \n" << std::endl;
 
@@ -39,8 +37,50 @@ void addformemenu(){
     std::cout << "Cercle 2" << std::endl;
     std::cout << "Segment 3" << std::endl;
     std::cout << "Polygone 4" << std::endl;
-// TODO quit the menu
+
 }
+
+void exporttosvg(Dessin currentDessin) {
+    std::string filename;
+    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
+    std::cin>>filename;
+    std::ofstream outfile(filename+".svg");
+    outfile << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+               "<svg width=\""<<currentDessin.width<<"\" height=\""<<currentDessin.height<<"\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+                                                                                           "<rect fill=\"#fff\" stroke=\"#000\" x=\"0\" y=\"0\" width=\""<<currentDessin.width<<"\" height=\""<<currentDessin.height<<"\"/>\n"<<std::endl;
+
+    for (int i = 0; i < currentDessin.formes.size(); ++i) {
+        outfile<<currentDessin.formes[i]->getsvgcontent();
+    }
+
+    outfile<<"</svg>";
+}
+
+void saveasjson(Dessin dessin){
+    std::string filename;
+    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
+    std::cin>>filename;
+    std::ofstream outfile(filename+".json");
+    outfile << "{"<<std::endl;
+    outfile << "\"height_dessin\":"+std::to_string(dessin.getHeight())+",\n";
+    outfile << "\"width_dessin\":"+std::to_string(dessin.getWidth())+",\n";
+
+    for (int i = 0; i < dessin.formes.size(); ++i) {
+        if (i+1==dessin.formes.size()){
+            outfile<<"\""+std::to_string(i+1)+"\":";
+            std::string content = dessin.formes[i]->getjsoncontent();
+            content.pop_back();
+            outfile<<content;
+        }else{
+            outfile<<"\""+std::to_string(i+1)+"\":";
+            outfile<<dessin.formes[i]->getjsoncontent();
+            outfile<<"\n";
+        }
+    }
+
+    outfile<<"\n}";
+}
+
 Rectangle createRectangle(){
     Rectangle rectangle;
     int height;
@@ -88,6 +128,30 @@ Cercle createCercle(){
     return cercle;
 }
 
+Segment createLine(){
+    Segment line;
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+    std::string fill;
+    std::cout << "MENU CREATION LIGNE : \n" << std::endl;
+    std::cout << "x1 :" << std::endl;
+    std::cin >> x1;
+    std::cout << "y1 :" << std::endl;
+    std::cin >> y1;
+    std::cout << "x2 :" << std::endl;
+    std::cin >> x2 ;
+    std::cout << "y2 :" << std::endl;
+    std::cin >> y2 ;
+    std::cout << "fill :" << std::endl;
+    std::cin >> fill;
+    line.setPoint1(Point(x1,y1));
+    line.setPoint2(Point(x2,y2));
+    line.setFill(fill);
+    return line;
+}
+
 Polygone createPolygone(){
     Polygone polygone;
     std::vector<Point*> listePoints;
@@ -127,7 +191,6 @@ void describeDessin(Dessin &dessin){
 
 Dessin selectforme(Dessin dessin){
 
-
     int selection = 0;
     while (true){
         addformemenu();
@@ -141,7 +204,7 @@ Dessin selectforme(Dessin dessin){
 //cercle
                 break;
             case 3:
-
+                dessin.formes.push_back(new Segment(createLine()));
 //segment
                 break;
             case 4:
@@ -150,6 +213,7 @@ Dessin selectforme(Dessin dessin){
                 break;
             case 5:
                 describeDessin(dessin);
+//dessin
                 break;
             case 9:
                 return dessin;
@@ -174,6 +238,7 @@ void editionmenu(Dessin &dessin){
                 break;
             case 2:
                 selectable = true;
+                saveasjson(dessin);
                 break;
             case 3:
                 selectable = true;
@@ -190,36 +255,7 @@ void editionmenu(Dessin &dessin){
     }
 }
 
-void exporttosvg(Dessin currentDessin) {
-    std::string filename;
-    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
-    std::cin>>filename;
-    std::ofstream outfile(filename+".svg");
-    outfile << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
-               "<svg width=\""<<currentDessin.width<<"\" height=\""<<currentDessin.height<<"\" xmlns=\"http://www.w3.org/2000/svg\">\n"
-               "<rect fill=\"#fff\" stroke=\"#000\" x=\"0\" y=\"0\" width=\""<<currentDessin.width<<"\" height=\""<<currentDessin.height<<"\"/>\n"<<std::endl;
 
-    for (int i = 0; i < currentDessin.formes.size(); ++i) {
-        outfile<<currentDessin.formes[i]->getsvgcontent();
-    }
-
-    outfile<<"</svg>";
-    //TODO app crash after out the svg
-}
-
-void saveasjson(Dessin dessin){
-    std::string filename;
-    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
-    std::cin>>filename;
-    std::ofstream outfile(filename+".json");
-    outfile << "{"<<std::endl;
-
-    for (int i = 0; i < dessin.formes.size(); ++i) {
-        outfile<<dessin.formes[i]->getsvgcontent();
-    }
-
-    outfile<<"}";
-}
 
 Dessin affichermenucreation(Dessin &dessin){
     int height;
