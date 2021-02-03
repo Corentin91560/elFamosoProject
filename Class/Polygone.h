@@ -12,7 +12,7 @@
 
 class Polygone : public Forme{
 public:
-    std::vector<Point*> listePoints;//TODO faire le choix du nombre de points : taille tot = taille choisie + 1 pour le retour au pt de départ
+    std::vector<Point*> listePoints;
 
     Polygone();
 

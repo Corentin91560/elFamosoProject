@@ -7,9 +7,12 @@
 #include "Class/Polygone.h"
 
 #include <fstream>
+#include <sstream>
+#include <map>
 
 
 void exporttosvg(Dessin currentDessin);
+void saveasjson(Dessin currentDessin);
 
 //TODO : bloquer les erreurs d'entrées
 void affichemenu(){
@@ -72,7 +75,7 @@ Cercle createCercle(){
     int posx;
     int posy;
     std::string fill;
-    std::cout << "MENU CREATION RECTANGLE : \n" << std::endl;
+    std::cout << "MENU CREATION CERCLE : \n" << std::endl;
     std::cout << "Radius :" << std::endl;
     std::cin >> radius;
     std::cout << "posx :" << std::endl;
@@ -126,8 +129,6 @@ void describeDessin(Dessin &dessin){
 }
 
 Dessin selectforme(Dessin dessin){
-
-
     int selection = 0;
     while (true){
         addformemenu();
@@ -174,6 +175,7 @@ void editionmenu(Dessin &dessin){
                 break;
             case 2:
                 selectable = true;
+                saveasjson(dessin);
                 break;
             case 3:
                 selectable = true;
@@ -215,10 +217,198 @@ void saveasjson(Dessin dessin){
     outfile << "{"<<std::endl;
 
     for (int i = 0; i < dessin.formes.size(); ++i) {
-        outfile<<dessin.formes[i]->getsvgcontent();
+        outfile<<dessin.formes[i]->getjsoncontent();
     }
 
     outfile<<"}";
+    //TODO app crash after save
+}
+
+std::string getValue(const std::string& property){
+    std::istringstream iss2(property);
+    std::string mot;
+    std::string res;
+    int i = 0;
+    while ( std::getline( iss2, mot, ':' ) )
+    {
+        if(i!=0){ res = mot; }
+        i++;
+    }
+    return res;
+}
+
+Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
+    std::string line;
+
+    std::vector<Forme*> formes;
+    Dessin dessin = Dessin(formes);
+
+    while(getline(fic, line))
+    {//TODO correct line to text between {}
+        if(line.find("height_dessin") < line.size()){
+            std::string value = getValue(line);
+            value.pop_back();
+            dessin.setHeight(std::stod(value));
+        } else if(line.find("width_dessin") < line.size()) {
+            std::string value = getValue(line);
+            value.pop_back();
+            dessin.setWidth(std::stoi(getValue(line)));
+        } else if(line.find("rectangle") < line.size()){
+                Rectangle rectangle;
+                int height;
+                int width;
+                int posx;
+                int posy;
+                std::string fill;
+
+                std::size_t pos = line.find("{");
+                std::string forme = line.substr(pos);
+
+                std::istringstream iss(forme);
+                std::string property;
+                while(getline(iss, property, ',')){
+                    if(property.find("width") < property.size()){
+                        width = std::stoi(getValue(property));
+
+                    } else if(property.find("height") < property.size()){
+                        height = std::stoi(getValue(property));
+
+                    } else if(property.find("posx") < property.size()){
+                        posx = std::stoi(getValue(property));
+
+                    } else if(property.find("posy") < property.size()){
+                        posy = std::stoi(getValue(property));
+
+                    } else if(property.find("fill") < property.size()){
+                        std::string value = getValue(property);
+
+                        std::size_t firstpos = value.find("\"");
+                        std::size_t secondpos = value.find("\"", firstpos+1);
+
+                        fill = value.substr (firstpos+1, secondpos-firstpos-1);
+                    }
+                }
+                rectangle.setWidth(width);
+                rectangle.setHeight(height);
+                rectangle.setPosx(posx);
+                rectangle.setPosy(posy);
+                rectangle.setFill(fill);
+                dessin.formes.push_back(new Rectangle(rectangle));
+
+        } else if (line.find("cercle") < line.size()){
+            Cercle cercle;
+            int radius;
+            int posx;
+            int posy;
+            std::string fill;
+
+            std::size_t pos = line.find("{");
+            std::string forme = line.substr(pos);
+
+            std::istringstream iss(forme);
+            std::string property;
+            while(getline(iss, property, ',')){
+
+                if(property.find("radius") < property.size()){
+                    radius = std::stoi(getValue(property));
+                } else if(property.find("posx") < property.size()){
+                    posx = std::stoi(getValue(property));
+
+                } else if(property.find("posy") < property.size()){
+                    posy = std::stoi(getValue(property));
+
+                } else if(property.find("fill") < property.size()){
+                    std::string value = getValue(property);
+
+                    std::size_t firstpos = value.find("\"");
+                    std::size_t secondpos = value.find("\"", firstpos+1);
+
+                    fill = value.substr (firstpos+1, secondpos-firstpos-1);
+                }
+
+            }
+            cercle.setRadius(radius);
+            cercle.setPosx(posx);
+            cercle.setPosy(posy);
+            cercle.setFill(fill);
+            dessin.formes.push_back(new Cercle(cercle));
+
+        } else if (line.find("line") < line.size()){
+            std::string fill;
+
+            std::size_t pos = line.find("{");
+            std::string forme = line.substr(pos);
+
+            std::istringstream iss(forme);
+            std::string property;
+            while(getline(iss, property, ',')){
+
+                if(property.find("fill") < property.size()){
+                    std::string value = getValue(property);
+
+                    std::size_t firstpos = value.find("\"");
+                    std::size_t secondpos = value.find("\"", firstpos+1);
+
+                    fill = value.substr (firstpos+1, secondpos-firstpos-1);
+                }
+
+            }
+        } else if (line.find("polygone") < line.size()){
+            std::string fill;
+
+            std::size_t pos = line.find("{");
+            std::string forme = line.substr(pos);
+
+            std::istringstream iss(forme);
+            std::string property;
+            while(getline(iss, property, ',')){
+
+                if(property.find("fill") < property.size()){
+                    std::string value = getValue(property);
+
+                    std::size_t firstpos = value.find("\"");
+                    std::size_t secondpos = value.find("\"", firstpos+1);
+
+                    fill = value.substr (firstpos+1, secondpos-firstpos-1);
+                }
+
+            }
+
+        }
+
+        //Définition des formes
+            //PosX
+            //PoxY
+            //Fill
+            //Définition des paramètres des formes
+            //Line
+            //Polygone
+                //Points
+
+    }
+    describeDessin(dessin);
+    return dessin;
+}
+
+Dessin openJson(const std::string& filename){
+    std::ifstream fic(filename, std::ios::in);
+
+    Dessin dessin = readJson(fic);
+    fic.close();
+
+    return dessin;
+}
+
+bool verifyJson(const std::string& filename){
+    std::ifstream fic(filename, std::ios::in);
+
+    if(fic){
+        fic.close();
+        return true;
+    }
+    std::cout<<"Fichier Introuvable"<<std::endl;
+    return false;
+
 }
 
 Dessin affichermenucreation(Dessin &dessin){
@@ -235,11 +425,12 @@ Dessin affichermenucreation(Dessin &dessin){
     return dessin;
 }
 
-void creationdessin(){
+Dessin creationdessin(){
     std::vector<Forme*> formes;
     Dessin dessin = Dessin(formes);
     affichermenucreation(dessin);
     editionmenu(dessin);
+    return dessin;
 }
 
 void startprogram(){
@@ -248,16 +439,27 @@ void startprogram(){
     while (!selectable){
         affichemenu();
         std::cin >> selection;
+        std::string filename;
         switch (selection) {
             case 1:
                 selectable = true;
                 creationdessin();
                 break;
             case 2:
-                selectable = true;
+
+                std::cout<<"Veuillez saisir le nom du fichier :"<<std::endl;
+                std::cin>>filename;
+
+                selectable = false;
+                if(verifyJson(filename)){
+                    Dessin dessin = openJson(filename);
+                    editionmenu(dessin);
+                }
+
                 break;
             case 3:
                 selectable = true;
+
 
                 break;
             case 9:

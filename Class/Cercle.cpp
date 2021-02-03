@@ -34,7 +34,7 @@ int Cercle::getRadius() const {
 
 std::string Cercle::getcontent() {
     std::string content;
-    content+=" Cercle de raduis : ";
+    content+=" Cercle de radius : ";
     content+=std::to_string(radius);
     content+=" , et son centre est en x : ";
     content+=std::to_string(posx);

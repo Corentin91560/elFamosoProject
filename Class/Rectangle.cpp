@@ -69,5 +69,6 @@ std::string Rectangle::getsvgcontent() {
 std::string Rectangle::getjsoncontent() {
     std::string content;
     content+="\"rectangle\":{"
-             "\n\"width\":"+std::to_string(width)+",\n\"height\":"+std::to_string(height)+",\n\"posx\":"+std::to_string(posx)+",\n\"posy\":"+std::to_string(posy)+",\n\"fill\":"+fill+"}";
+             "\n\"width\":"+std::to_string(width)+",\n\"height\":"+std::to_string(height)+",\n\"posx\":"+std::to_string(posx)+",\n\"posy\":"+std::to_string(posy)+",\n\"fill\":\""+fill+"\"}";
+    return content;
 }
