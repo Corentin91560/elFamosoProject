@@ -13,19 +13,19 @@ class Dessin {
 private:
 
 public:
-    double getHeight() const;
+    int getHeight() const;
 
-    double getWidth() const;
+    int getWidth() const;
 
-    Dessin(const std::vector<Forme *> &formes, double height, double width);
+    Dessin(const std::vector<Forme *> &formes, int height, int width);
 
     std::vector<Forme*> formes;
-    double height;
-    double width;
+    int height;
+    int width;
 
-    void setHeight(double height);
+    void setHeight(int height);
 
-    void setWidth(double width);
+    void setWidth(int width);
 
     Dessin(const std::vector<Forme *> &formes);
 

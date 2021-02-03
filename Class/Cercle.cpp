@@ -59,7 +59,6 @@ std::string Cercle::getsvgcontent() {
 
 std::string Cercle::getjsoncontent() {
     std::string content;
-    content+="\"cercle\":{"
-             "\n\"radius\":"+std::to_string(radius)+",\n\"posx\":"+std::to_string(posx)+",\n\"posy\":"+std::to_string(posy)+",\n\"fill\":"+fill+"}";
+    content+="{\"type\":\"cercle\",\"radius\":"+std::to_string(radius)+",\"posx\":"+std::to_string(posx)+",\"posy\":"+std::to_string(posy)+",\"fill\":\""+fill+"\"},";
     return content;
 }

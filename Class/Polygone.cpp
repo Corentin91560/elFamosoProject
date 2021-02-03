@@ -57,7 +57,19 @@ std::string Polygone::getsvgcontent() {
 
 std::string Polygone::getjsoncontent() {
     std::string content;
-    //content+="\"cercle\":{"
-    //         "\n\"radius\":"+std::to_string(radius)+",\n\"posx\":"+std::to_string(posx)+",\n\"posy\":"+std::to_string(posy)+",\n\"fill\":"+fill+"}";
+    std::string listePointsSvg;
+
+    int i;
+    for(i = 0; i < listePoints.size(); i++){
+        Point* point = Polygone::listePoints.at(i);
+        if(i != 0){
+            listePointsSvg += " ";
+        }
+        listePointsSvg += std::to_string(point->getposX());
+        listePointsSvg += ",";
+        listePointsSvg += std::to_string(point->getposY());
+    }
+
+    content+="{\"type\":\"polygone\",\"point\":\""+listePointsSvg+"\",\"fill\":\""+fill+"\"},";
     return content;
 }
