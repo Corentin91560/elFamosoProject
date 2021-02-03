@@ -16,6 +16,8 @@ private :
 public:
     Point(int x, int y);
 
+    Point();
+
     int getposX();
     int getposY();
 

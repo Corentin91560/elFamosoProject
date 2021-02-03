@@ -26,3 +26,5 @@ int Point::getposX(){
 int Point::getposY(){
     return posy;
 }
+
+Point::Point() {}
