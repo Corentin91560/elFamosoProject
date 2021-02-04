@@ -26,9 +26,9 @@ void Polygone::setListePoints(std::vector<Point*> liste) {
 
 std::string Polygone::getcontent(){
     std::string content;
-    content+="Polygone avec ";
-    content+=std::to_string(listePoints.size());
-    content+=" cotés";
+    content+="Polygone avec "
+            +std::to_string(listePoints.size())
+            +" cotés";
     return content;
 }
 
@@ -47,11 +47,11 @@ std::string Polygone::getsvgcontent() {
         listePointsSvg += std::to_string(point->getposY());
     }
 
-    content+="<polyline points=\"";
-    content+=listePointsSvg;
-    content+="\" fill=\"";
-    content+=fill;
-    content+="\" />\n";
+    content="<polyline points=\""
+            +listePointsSvg
+            +"\" fill=\""
+            +fill
+            +"\" />\n";
     return content;
 }
 

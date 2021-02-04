@@ -11,11 +11,11 @@ Point::Point(float x, float y) {
 
 std::string Point::getcontent(){
     std::string content;
-    content+="(";
-    content+=std::to_string(posx);
-    content+=",";
-    content+=std::to_string(posy);
-    content+=")";
+    content+="("
+            +std::to_string(posx)
+            +","
+            +std::to_string(posy)
+            +")";
     return content;
 }
 
