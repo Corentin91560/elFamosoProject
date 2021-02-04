@@ -22,6 +22,16 @@ void affichemenu(){
     std::cout << "Quitter : 9" << std::endl;
 }
 
+void affichemenuresizemove(){
+    std::cout << "MENU : \n" << std::endl;
+
+    std::cout << "Agrandir : 1" << std::endl;
+    std::cout << "Reduire : 2" << std::endl;
+    std::cout << "Décaler sur les X : 3" << std::endl;
+    std::cout << "Décaler sur les Y : 4" << std::endl;
+    std::cout << "Quitter : 9" << std::endl;
+}
+
 void affichemenuedition(){
 
     std::cout << "MENU EDITION DESSIN : \n" << std::endl;
@@ -29,6 +39,9 @@ void affichemenuedition(){
     std::cout << "Rajouter une forme : 1" << std::endl;
     std::cout << "Sauvegarder le dessin : 2" << std::endl;
     std::cout << "Exporter en SVG : 3" << std::endl;
+    std::cout << "Retirer une forme : 4" << std::endl;
+    std::cout << "Voir le contenu du dessin : 5" << std::endl;
+    std::cout << "Deplacer/Agrandir : 6" << std::endl;
     std::cout << "Quitter sans sauvegarder : 9" << std::endl;
 
 }
@@ -40,7 +53,7 @@ void addformemenu(){
     std::cout << "Cercle 2" << std::endl;
     std::cout << "Segment 3" << std::endl;
     std::cout << "Polygone 4" << std::endl;
-    std::cout << "Quitter sans sauvegarder : 9" << std::endl;
+    std::cout << "Retour : 9" << std::endl;
 
 }
 
@@ -85,12 +98,52 @@ void saveasjson(Dessin dessin){
     outfile<<"\n}";
 }
 
+Dessin agrandir(Dessin dessin){
+    float coef;
+    std::cout<<"veuillez saisir le coefficient"<<std::endl;
+    std::cin>>coef;
+    for (int i = 0; i < dessin.formes.size(); ++i) {
+        dessin.formes[i]->agrandirforme(coef);
+    }
+    return dessin;
+}
+
+Dessin reduire(Dessin dessin){
+    float coef;
+    std::cout<<"veuillez saisir le coefficient"<<std::endl;
+    std::cin>>coef;
+    for (int i = 0; i < dessin.formes.size(); ++i) {
+        dessin.formes[i]->reduireforme(coef);
+    }
+    return dessin;
+}
+
+Dessin movex(Dessin dessin){
+    float coef;
+    std::cout<<"veuillez saisir le coefficient"<<std::endl;
+    std::cin>>coef;
+    for (int i = 0; i < dessin.formes.size(); ++i) {
+        dessin.formes[i]->movexforme(coef);
+    }
+    return dessin;
+}
+
+Dessin movey(Dessin dessin){
+    float coef;
+    std::cout<<"veuillez saisir le coefficient"<<std::endl;
+    std::cin>>coef;
+    for (int i = 0; i < dessin.formes.size(); ++i) {
+        dessin.formes[i]->moveyforme(coef);
+    }
+    return dessin;
+}
+
 Rectangle createRectangle(){
     Rectangle rectangle;
-    int height;
-    int width;
-    int posx;
-    int posy;
+    float height;
+    float width;
+    float posx;
+    float posy;
     std::string fill;
     std::cout << "MENU CREATION RECTANGLE : \n" << std::endl;
     std::cout << "Hauteur :" << std::endl;
@@ -112,9 +165,9 @@ Rectangle createRectangle(){
 }
 Cercle createCercle(){
     Cercle cercle;
-    int radius;
-    int posx;
-    int posy;
+    float radius;
+    float posx;
+    float posy;
     std::string fill;
     std::cout << "MENU CREATION CERCLE : \n" << std::endl;
     std::cout << "Radius :" << std::endl;
@@ -134,10 +187,10 @@ Cercle createCercle(){
 
 Segment createLine(){
     Segment line;
-    int x1;
-    int y1;
-    int x2;
-    int y2;
+    float x1;
+    float y1;
+    float x2;
+    float y2;
     std::string fill;
     std::cout << "MENU CREATION LIGNE : \n" << std::endl;
     std::cout << "x1 :" << std::endl;
@@ -170,8 +223,8 @@ Polygone createPolygone(){
 
     int i = 0;
     while (i < nbPoints){
-        int x;
-        int y;
+        float x;
+        float y;
         std::cout << "Coordonnées du point n°" << i+1 << std::endl;
         std::cout << "x :" << std::endl;
         std::cin >> x;
@@ -189,7 +242,45 @@ Polygone createPolygone(){
 void describeDessin(Dessin &dessin){
     std::cout<<"Hauteur du dessin : "<<dessin.getHeight()<<" et Largueur : "<<dessin.getWidth()<<std::endl;
     for (int i = 0; i < dessin.formes.size(); ++i) {
-        std::cout<<dessin.formes[i]->getcontent()<<std::endl;
+        std::cout<<"n°"<<i+1<<dessin.formes[i]->getcontent()<<std::endl;
+    }
+}
+
+
+
+Dessin removeElement(Dessin &dessin){
+    int elementnumber;
+    std::cout << "numero de l'element :" << std::endl;
+    std::cin >> elementnumber;
+
+    dessin.formes.erase(dessin.formes.begin()+elementnumber-1);
+    return dessin;
+}
+
+Dessin resizemove(Dessin dessin){
+    int selection = 0;
+    while (true){
+        affichemenuresizemove();
+        std::cin >> selection;
+        switch (selection) {
+            case 1:
+                dessin = agrandir(dessin);
+                break;
+            case 2:
+                dessin = reduire(dessin);
+                break;
+            case 3:
+                dessin = movex(dessin);
+                break;
+            case 4:
+                dessin = movey(dessin);
+                break;
+            case 9:
+                return dessin;
+            default:
+                std::cout << "Entrée incorrecte, veuillez choisir une valeur appropriée\n" << std::endl;
+                break;
+        }
     }
 }
 
@@ -213,10 +304,6 @@ Dessin selectforme(Dessin dessin){
             case 4:
                 dessin.formes.push_back(new Polygone(createPolygone()));
 //polygone
-                break;
-            case 5:
-                describeDessin(dessin);
-//dessin
                 break;
             case 9:
                 return dessin;
@@ -244,6 +331,17 @@ void editionmenu(Dessin &dessin){
                 break;
             case 3:
                 exporttosvg(dessin);
+                break;
+            case 4:
+                removeElement(dessin);
+//dessin
+                break;
+            case 5:
+                describeDessin(dessin);
+//dessin
+                break;
+            case 6:
+                resizemove(dessin);
                 break;
             case 9:
                 selectable = true;
@@ -287,10 +385,10 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             dessin.setWidth(std::stoi(getValue(line)));
         } else if(line.find("rectangle") < line.size()){
             Rectangle rectangle;
-            int height;
-            int width;
-            int posx;
-            int posy;
+            float height;
+            float width;
+            float posx;
+            float posy;
             std::string fill;
 
             std::size_t pos = line.find("{");
@@ -329,9 +427,9 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
 
         } else if (line.find("cercle") < line.size()){
             Cercle cercle;
-            int radius;
-            int posx;
-            int posy;
+            float radius;
+            float posx;
+            float posy;
             std::string fill;
 
             std::size_t pos = line.find("{");
@@ -367,10 +465,10 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
 
         } else if (line.find("line") < line.size()){
             Segment segment;
-            int x1;
-            int y1;
-            int x2;
-            int y2;
+            float x1;
+            float y1;
+            float x2;
+            float y2;
             std::string fill;
 
             std::size_t pos = line.find("{");
@@ -485,8 +583,8 @@ bool verifyJson(const std::string& filename){
 }
 
 Dessin affichermenucreation(Dessin &dessin){
-    int height;
-    int width;
+    float height;
+    float width;
     std::cout << "MENU CREATION DESSIN : \n" << std::endl;
     std::cout << "Hauteur :" << std::endl;
     std::cin >> height;
@@ -506,6 +604,30 @@ Dessin creationdessin(){
     return dessin;
 }
 
+Dessin fusion(Dessin firstDrawing,Dessin secondDrawing){
+    std::vector<Forme*> formes;
+    float maxheight;
+    float maxwidth;
+
+    if(firstDrawing.height>secondDrawing.height){
+        maxheight = firstDrawing.height;
+    }else{
+        maxheight = secondDrawing.height;
+    }
+    if(firstDrawing.width>secondDrawing.width){
+        maxwidth = firstDrawing.width;
+    }else{
+        maxwidth = secondDrawing.width;
+    }
+    for (int i = 0; i < secondDrawing.formes.size(); ++i) {
+        firstDrawing.formes.push_back(secondDrawing.formes.at(i));
+    }
+
+    Dessin dessin = Dessin(firstDrawing.formes,maxheight,maxwidth);
+
+    return dessin;
+}
+
 void startprogram(){
     int selection = 0;
     bool selectable = false;
@@ -513,16 +635,17 @@ void startprogram(){
         affichemenu();
         std::cin >> selection;
         std::string filename;
+        std::string firstfile;
+        std::string secondfile;
         switch (selection) {
             case 1:
                 selectable = true;
                 creationdessin();
                 break;
             case 2:
+                selectable = true;
                 std::cout<<"Veuillez saisir le nom du fichier :"<<std::endl;
                 std::cin>>filename;
-
-                selectable = false;
                 if(verifyJson(filename)){
                     Dessin dessin = openJson(filename);
                     editionmenu(dessin);
@@ -530,6 +653,16 @@ void startprogram(){
                 break;
             case 3:
                 selectable = true;
+                std::cout<<"Veuillez saisir le nom du 1er fichier :"<<std::endl;
+                std::cin>>firstfile;
+                std::cout<<"Veuillez saisir le nom du 2nd fichier :"<<std::endl;
+                std::cin>>secondfile;
+                if(verifyJson(firstfile)&&verifyJson(secondfile)){
+                    Dessin firstdessin = openJson(firstfile);
+                    Dessin seconddessin = openJson(secondfile);
+                    Dessin dessin = fusion(firstdessin,seconddessin);
+                    editionmenu(dessin);
+                }
                 break;
             case 9:
                 selectable = true;
