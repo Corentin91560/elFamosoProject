@@ -66,7 +66,7 @@ std::string Polygone::getjsoncontent() {
             listePointsSvg += " ";
         }
         listePointsSvg += std::to_string(point->getposX());
-        listePointsSvg += ",";
+        listePointsSvg += ";";
         listePointsSvg += std::to_string(point->getposY());
     }
 

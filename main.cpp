@@ -388,7 +388,11 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
 
             }
         } else if (line.find("polygone") < line.size()){
+            Polygone polygone;
+            std::vector<Point*> listePoints;
             std::string fill;
+
+            int nbPoints;
 
             std::size_t pos = line.find("{");
             std::string forme = line.substr(pos);
@@ -397,7 +401,33 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             std::string property;
             while(getline(iss, property, ',')){
 
-                if(property.find("fill") < property.size()){
+                if(property.find("point") < property.size()){
+                    std::string pointsList = getValue(property);
+                    std::string posx, posy;
+                    
+                    std::size_t firstpos = pointsList.find("\"");
+                    pointsList = pointsList.substr (firstpos + 1);
+                    pointsList.pop_back();
+
+                    int nbPoints = 0;
+                    for (int i = 0; i < pointsList.size(); i++){
+                        if (pointsList[i] == ';') nbPoints++;
+                    }
+
+                    for(int i = 0; i < nbPoints; i++){
+                        std::size_t posSeparator = pointsList.find(";");
+                        posx = pointsList.substr (0, posSeparator);
+                        pointsList = pointsList.substr(posSeparator + 1);
+
+                        std::size_t posSpace = pointsList.find(" ");
+                        posy = pointsList.substr(0, posSpace);
+                        pointsList = pointsList.substr(posSpace + 1);
+
+                        Point* point = new Point(std::stoi(posx), std::stoi(posy));
+                        listePoints.push_back(point);
+                    }
+
+                } else if(property.find("fill") < property.size()){
                     std::string value = getValue(property);
 
                     std::size_t firstpos = value.find("\"");
@@ -405,19 +435,12 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
 
                     fill = value.substr (firstpos+1, secondpos-firstpos-1);
                 }
-
             }
+            polygone.setListePoints(listePoints);
+            polygone.setFill(fill);
 
+            dessin.formes.push_back(new Polygone(polygone));
         }
-
-        //Définition des formes
-            //PosX
-            //PoxY
-            //Fill
-            //Définition des paramètres des formes
-            //Line
-            //Polygone
-                //Points
 
     }
     describeDessin(dessin);
