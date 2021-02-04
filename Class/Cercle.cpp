@@ -28,32 +28,32 @@ Cercle::Cercle() {}
 
 std::string Cercle::getcontent() {
     std::string content;
-    content+=" Cercle de raduis : ";
-    content+=std::to_string(radius);
-    content+=" , et son centre est en x : ";
-    content+=std::to_string(posx);
-    content+=" et en y : ";
-    content+=std::to_string(posy);
+        +" Cercle de raduis : "
+        +std::to_string(radius)
+        +" , et son centre est en x : "
+        +std::to_string(posx)
+        +" et en y : "
+        +std::to_string(posy);
     return content;
 }
 
 std::string Cercle::getsvgcontent() {
     std::string content;
-    content+="<circle cx=\"";
-    content+=std::to_string(posx);
-    content+="\" cy=\"";
-    content+=std::to_string(posy);
-    content+="\" r=\"";
-    content+=std::to_string(radius);
-    content+="\" fill=\"";
-    content+=fill;
-    content+="\" />\n";
+    content="<circle cx=\""
+            +std::to_string(posx)
+            +"\" cy=\""
+            +std::to_string(posy)
+            +"\" r=\""
+            +std::to_string(radius)
+            +"\" fill=\""
+            +fill
+            +"\" />\n";
     return content;
 }
 
 std::string Cercle::getjsoncontent() {
     std::string content;
-    content+="{\"type\":\"cercle\",\"radius\":"+std::to_string(radius)+",\"posx\":"+std::to_string(posx)+",\"posy\":"+std::to_string(posy)+",\"fill\":\""+fill+"\"},";
+    content="{\"type\":\"cercle\",\"radius\":"+std::to_string(radius)+",\"posx\":"+std::to_string(posx)+",\"posy\":"+std::to_string(posy)+",\"fill\":\""+fill+"\"},";
     return content;
 }
 
