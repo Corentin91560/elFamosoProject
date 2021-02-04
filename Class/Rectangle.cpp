@@ -6,28 +6,24 @@
 
 Rectangle::Rectangle() {}
 
-Rectangle::Rectangle(int width, int height) {
-    this->width=width;
-    this->height=height;
-}
 
 Rectangle::~Rectangle() {
 
 }
 
-void Rectangle::setWidth(int width) {
+void Rectangle::setWidth(float width) {
     Rectangle::width = width;
 }
 
-void Rectangle::setHeight(int height) {
+void Rectangle::setHeight(float height) {
     Rectangle::height = height;
 }
 
-void Rectangle::setPosx(int posx) {
+void Rectangle::setPosx(float posx) {
     Rectangle::posx = posx;
 }
 
-void Rectangle::setPosy(int posy) {
+void Rectangle::setPosy(float posy) {
     Rectangle::posy = posy;
 }
 
@@ -71,3 +67,24 @@ std::string Rectangle::getjsoncontent() {
     content+="{\"type\":\"rectangle\",\"width\":"+std::to_string(width)+",\"height\":"+std::to_string(height)+",\"posx\":"+std::to_string(posx)+",\"posy\":"+std::to_string(posx)+",\"fill\":\""+fill+"\"},";
     return content;
 }
+
+void Rectangle::agrandirforme(float coef) {
+    Rectangle::width = width*coef;
+    Rectangle::height = height*coef;
+
+}
+
+void Rectangle::reduireforme(float coef) {
+    Rectangle::width = width/coef;
+    Rectangle::height = height/coef;
+}
+
+void Rectangle::movexforme(float coef) {
+    Rectangle::posx = posx+coef;
+}
+
+void Rectangle::moveyforme(float coef) {
+    Rectangle::posy = posy+coef;
+}
+
+

@@ -8,11 +8,11 @@ Polygone::Polygone() {}
 
 Polygone::~Polygone() {}
 
-void Polygone::setPosx(int posx) {
+void Polygone::setPosx(float posx) {
     Polygone::posx = posx;
 }
 
-void Polygone::setPosy(int posy) {
+void Polygone::setPosy(float posy) {
     Polygone::posy = posy;
 }
 
@@ -72,4 +72,38 @@ std::string Polygone::getjsoncontent() {
 
     content+="{\"type\":\"polygone\",\"point\":\""+listePointsSvg+"\",\"fill\":\""+fill+"\"},";
     return content;
+}
+
+void Polygone::agrandirforme(float coef) {
+    int i;
+    for(i = 0; i < listePoints.size(); i++){
+        Point* point = Polygone::listePoints.at(i);
+        point->setPosx(point->getposX()*coef);
+        point->setPosy(point->getposY()*coef);
+    }
+}
+
+void Polygone::reduireforme(float coef) {
+    int i;
+    for(i = 0; i < listePoints.size(); i++){
+        Point* point = Polygone::listePoints.at(i);
+        point->setPosx(point->getposX()*coef);
+        point->setPosy(point->getposY()*coef);
+    }
+}
+
+void Polygone::movexforme(float coef) {
+    int i;
+    for(i = 0; i < listePoints.size(); i++){
+        Point* point = Polygone::listePoints.at(i);
+        point->setPosx(point->getposX()+coef);
+    }
+}
+
+void Polygone::moveyforme(float coef) {
+    int i;
+    for(i = 0; i < listePoints.size(); i++){
+        Point* point = Polygone::listePoints.at(i);
+        point->setPosy(point->getposY()+coef);
+    }
 }

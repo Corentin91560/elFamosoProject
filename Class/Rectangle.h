@@ -11,25 +11,23 @@
 
 
 class Rectangle : public Forme{
-private:
-    int width{};
-    int height{};
-
 public:
+
+    float width;
+    float height;
 
     Rectangle();
 
-    Rectangle( int width, int height);
 
-    void setWidth(int width);
+    void setWidth(float width);
 
-    void setHeight(int height);
+    void setHeight(float height);
 
     virtual ~Rectangle();
 
-    void setPosx(int posx) override;
+    void setPosx(float posx) override;
 
-    void setPosy(int posy) override;
+    void setPosy(float posy) override;
 
     void setFill(const std::string &fill) override;
 
@@ -38,6 +36,14 @@ public:
     std::string getsvgcontent() override;
 
     std::string getjsoncontent() override;
+
+    void agrandirforme(float coef) override;
+
+    void reduireforme(float coef) override;
+
+    void movexforme(float coef) override;
+
+    void moveyforme(float coef) override;
 
 };
 

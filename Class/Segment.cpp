@@ -56,11 +56,11 @@ void Segment::setPoint2(const Point &point2) {
     Segment::point2 = point2;
 }
 
-void Segment::setPosx(int posx) {
+void Segment::setPosx(float posx) {
 
 }
 
-void Segment::setPosy(int posy) {
+void Segment::setPosy(float posy) {
 
 }
 
@@ -69,3 +69,28 @@ void Segment::setFill(const std::string &fill) {
 }
 
 Segment::Segment() {}
+
+void Segment::agrandirforme(float coef) {
+
+    point1.setPosx(point1.getposX()*coef);
+    point1.setPosy(point1.getposY()*coef);
+    point2.setPosx(point2.getposX()*coef);
+    point2.setPosy(point2.getposY()*coef);
+}
+
+void Segment::reduireforme(float coef) {
+    point1.setPosx(point1.getposX()/coef);
+    point1.setPosy(point1.getposY()/coef);
+    point2.setPosx(point2.getposX()/coef);
+    point2.setPosy(point2.getposY()/coef);
+}
+
+void Segment::movexforme(float coef) {
+    point1.setPosx(point1.getposX()+coef);
+    point2.setPosx(point2.getposX()+coef);
+}
+
+void Segment::moveyforme(float coef) {
+    point1.setPosy(point1.getposY()+coef);
+    point2.setPosy(point2.getposY()+coef);
+}

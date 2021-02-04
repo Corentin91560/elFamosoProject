@@ -4,22 +4,22 @@
 
 #include "Dessin.h"
 
-Dessin::Dessin(const std::vector<Forme *> &formes, int height, int width) : formes(formes), height(height),
+Dessin::Dessin(const std::vector<Forme *> &formes, float height, float width) : formes(formes), height(height),
                                                                                   width(width) {}
 
-int Dessin::getHeight() const {
+float Dessin::getHeight() const {
     return height;
 }
 
-int Dessin::getWidth() const {
+float Dessin::getWidth() const {
     return width;
 }
 
-void Dessin::setHeight(int height) {
+void Dessin::setHeight(float height) {
     Dessin::height = height;
 }
 
-void Dessin::setWidth(int width) {
+void Dessin::setWidth(float width) {
     Dessin::width = width;
 }
 

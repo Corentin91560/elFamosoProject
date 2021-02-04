@@ -10,28 +10,31 @@
 
 class Cercle : public Forme{
 public:
-    int radius;
+    float radius;
 
     Cercle();
 
-    Cercle(int radius);
-
     virtual ~Cercle();
 
-    void setPosx(int posx) override;
+    void setPosx(float posx) override;
 
-    void setPosy(int posy) override;
+    void setPosy(float posy) override;
 
     void setFill(const std::string &fill) override;
 
-    void setRadius(int radius);
-
-    int getRadius() const;
+    void setRadius(float radius);
 
     std::string getcontent() override;
     std::string getsvgcontent() override;
     std::string getjsoncontent() override;
 
+    void agrandirforme(float coef) override;
+
+    void reduireforme(float coef) override;
+
+    void movexforme(float coef) override;
+
+    void moveyforme(float coef) override;
 
 };
 

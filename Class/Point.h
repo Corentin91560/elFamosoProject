@@ -10,18 +10,24 @@
 
 class Point {
 private :
-    int posx {};
-    int posy {};
+    float posx {};
+    float posy {};
 
 public:
-    Point(int x, int y);
+    Point(float x, float y);
 
     Point();
 
-    int getposX();
-    int getposY();
+    void setPosx(float posx);
+
+    void setPosy(float posy);
+
+    float getposX();
+    float getposY();
 
     std::string getcontent();
+
+
 };
 
 

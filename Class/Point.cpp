@@ -4,7 +4,7 @@
 
 #include "Point.h"
 
-Point::Point(int x, int y) {
+Point::Point(float x, float y) {
     Point::posx = x;
     Point::posy = y;
 }
@@ -19,12 +19,20 @@ std::string Point::getcontent(){
     return content;
 }
 
-int Point::getposX(){
+float Point::getposX(){
     return posx;
 }
 
-int Point::getposY(){
+float Point::getposY(){
     return posy;
 }
 
 Point::Point() {}
+
+void Point::setPosx(float posx) {
+    Point::posx = posx;
+}
+
+void Point::setPosy(float posy) {
+    Point::posy = posy;
+}
