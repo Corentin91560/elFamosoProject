@@ -7,7 +7,6 @@
 #include "Class/Segment.h"
 #include <fstream>
 #include <sstream>
-#include <map>
 #include <string>
 
 
@@ -41,6 +40,7 @@ void addformemenu(){
     std::cout << "Cercle 2" << std::endl;
     std::cout << "Segment 3" << std::endl;
     std::cout << "Polygone 4" << std::endl;
+    std::cout << "Quitter sans sauvegarder : 9" << std::endl;
 
 }
 
@@ -240,11 +240,9 @@ void editionmenu(Dessin &dessin){
                 dessin = Dessin(selectforme(dessin));
                 break;
             case 2:
-                selectable = true;
                 saveasjson(dessin);
                 break;
             case 3:
-                selectable = true;
                 exporttosvg(dessin);
                 break;
             case 9:
@@ -288,46 +286,46 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             value.pop_back();
             dessin.setWidth(std::stoi(getValue(line)));
         } else if(line.find("rectangle") < line.size()){
-                Rectangle rectangle;
-                int height;
-                int width;
-                int posx;
-                int posy;
-                std::string fill;
+            Rectangle rectangle;
+            int height;
+            int width;
+            int posx;
+            int posy;
+            std::string fill;
 
-                std::size_t pos = line.find("{");
-                std::string forme = line.substr(pos);
+            std::size_t pos = line.find("{");
+            std::string forme = line.substr(pos);
 
-                std::istringstream iss(forme);
-                std::string property;
-                while(getline(iss, property, ',')){
-                    if(property.find("width") < property.size()){
-                        width = std::stoi(getValue(property));
+            std::istringstream iss(forme);
+            std::string property;
+            while(getline(iss, property, ',')){
+                if(property.find("width") < property.size()){
+                    width = std::stoi(getValue(property));
 
-                    } else if(property.find("height") < property.size()){
-                        height = std::stoi(getValue(property));
+                } else if(property.find("height") < property.size()){
+                    height = std::stoi(getValue(property));
 
-                    } else if(property.find("posx") < property.size()){
-                        posx = std::stoi(getValue(property));
+                } else if(property.find("posx") < property.size()){
+                    posx = std::stoi(getValue(property));
 
-                    } else if(property.find("posy") < property.size()){
-                        posy = std::stoi(getValue(property));
+                } else if(property.find("posy") < property.size()){
+                    posy = std::stoi(getValue(property));
 
-                    } else if(property.find("fill") < property.size()){
-                        std::string value = getValue(property);
+                } else if(property.find("fill") < property.size()){
+                    std::string value = getValue(property);
 
-                        std::size_t firstpos = value.find("\"");
-                        std::size_t secondpos = value.find("\"", firstpos+1);
+                    std::size_t firstpos = value.find("\"");
+                    std::size_t secondpos = value.find("\"", firstpos+1);
 
-                        fill = value.substr (firstpos+1, secondpos-firstpos-1);
-                    }
+                    fill = value.substr (firstpos+1, secondpos-firstpos-1);
                 }
-                rectangle.setWidth(width);
-                rectangle.setHeight(height);
-                rectangle.setPosx(posx);
-                rectangle.setPosy(posy);
-                rectangle.setFill(fill);
-                dessin.formes.push_back(new Rectangle(rectangle));
+            }
+            rectangle.setWidth(width);
+            rectangle.setHeight(height);
+            rectangle.setPosx(posx);
+            rectangle.setPosy(posy);
+            rectangle.setFill(fill);
+            dessin.formes.push_back(new Rectangle(rectangle));
 
         } else if (line.find("cercle") < line.size()){
             Cercle cercle;
@@ -368,6 +366,11 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             dessin.formes.push_back(new Cercle(cercle));
 
         } else if (line.find("line") < line.size()){
+            Segment segment;
+            int x1;
+            int y1;
+            int x2;
+            int y2;
             std::string fill;
 
             std::size_t pos = line.find("{");
@@ -377,7 +380,15 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             std::string property;
             while(getline(iss, property, ',')){
 
-                if(property.find("fill") < property.size()){
+                if(property.find("x1") < property.size()){
+                    x1 = std::stoi(getValue(property));
+                } else if(property.find("y1") < property.size()){
+                    y1 = std::stoi(getValue(property));
+                } else if(property.find("x2") < property.size()){
+                    x2 = std::stoi(getValue(property));
+                } else if(property.find("y2") < property.size()){
+                    y2 = std::stoi(getValue(property));
+                } else if(property.find("fill") < property.size()){
                     std::string value = getValue(property);
 
                     std::size_t firstpos = value.find("\"");
@@ -387,12 +398,14 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
                 }
 
             }
+            segment.setPoint1(Point(x1,y1));
+            segment.setPoint2(Point(x2,y2));
+            segment.setFill(fill);
+            dessin.formes.push_back(new Segment(segment));
         } else if (line.find("polygone") < line.size()){
             Polygone polygone;
             std::vector<Point*> listePoints;
             std::string fill;
-
-            int nbPoints;
 
             std::size_t pos = line.find("{");
             std::string forme = line.substr(pos);
@@ -404,7 +417,7 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
                 if(property.find("point") < property.size()){
                     std::string pointsList = getValue(property);
                     std::string posx, posy;
-                    
+
                     std::size_t firstpos = pointsList.find("\"");
                     pointsList = pointsList.substr (firstpos + 1);
                     pointsList.pop_back();
@@ -435,11 +448,14 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
 
                     fill = value.substr (firstpos+1, secondpos-firstpos-1);
                 }
+
             }
+
             polygone.setListePoints(listePoints);
             polygone.setFill(fill);
 
             dessin.formes.push_back(new Polygone(polygone));
+
         }
 
     }
@@ -503,7 +519,6 @@ void startprogram(){
                 creationdessin();
                 break;
             case 2:
-
                 std::cout<<"Veuillez saisir le nom du fichier :"<<std::endl;
                 std::cin>>filename;
 
@@ -512,12 +527,9 @@ void startprogram(){
                     Dessin dessin = openJson(filename);
                     editionmenu(dessin);
                 }
-
                 break;
             case 3:
                 selectable = true;
-
-
                 break;
             case 9:
                 selectable = true;
