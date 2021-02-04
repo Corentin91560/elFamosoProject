@@ -6,15 +6,15 @@
 #define ELFAMOSOPROJECT_CERCLE_H
 
 
-#include "Forme.h"
+#include "Shape.h"
 
-class Cercle : public Forme{
+class Circle : public Shape{
 public:
     float radius;
 
-    Cercle();
+    Circle();
 
-    virtual ~Cercle();
+    virtual ~Circle();
 
     void setPosx(float posx) override;
 

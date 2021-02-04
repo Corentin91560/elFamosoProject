@@ -4,8 +4,8 @@
 
 #include "Dessin.h"
 
-Dessin::Dessin(const std::vector<Forme *> &formes, float height, float width) : formes(formes), height(height),
-                                                                                  width(width) {}
+Dessin::Dessin(const std::vector<Shape *> &formes, float height, float width) : formes(formes), height(height),
+                                                                                width(width) {}
 
 float Dessin::getHeight() const {
     return height;
@@ -23,6 +23,6 @@ void Dessin::setWidth(float width) {
     Dessin::width = width;
 }
 
-Dessin::Dessin(const std::vector<Forme *> &formes) : formes(formes) {}
+Dessin::Dessin(const std::vector<Shape *> &formes) : formes(formes) {}
 
 

@@ -2,7 +2,7 @@
 #include <list>
 #include "Class/Rectangle.h"
 #include "Class/Dessin.h"
-#include "Class/Cercle.h"
+#include "Class/Circle.h"
 #include "Class/Polygone.h"
 #include "Class/Segment.h"
 #include <fstream>
@@ -50,7 +50,7 @@ void addformemenu(){
     std::cout << "CHOIX DE FORME : \n" << std::endl;
 
     std::cout << "Rectangle 1" << std::endl;
-    std::cout << "Cercle 2" << std::endl;
+    std::cout << "Circle 2" << std::endl;
     std::cout << "Segment 3" << std::endl;
     std::cout << "Polygone 4" << std::endl;
     std::cout << "Retour : 9" << std::endl;
@@ -163,8 +163,8 @@ Rectangle createRectangle(){
     rectangle.setFill(fill);
     return rectangle;
 }
-Cercle createCercle(){
-    Cercle cercle;
+Circle createCercle(){
+    Circle cercle;
     float radius;
     float posx;
     float posy;
@@ -294,7 +294,7 @@ Dessin selectforme(Dessin dessin){
                 dessin.formes.push_back(new Rectangle(createRectangle()));
                 break;
             case 2:
-                dessin.formes.push_back(new Cercle(createCercle()));
+                dessin.formes.push_back(new Circle(createCercle()));
 //cercle
                 break;
             case 3:
@@ -370,7 +370,7 @@ std::string getValue(const std::string& property){
 Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
     std::string line;
 
-    std::vector<Forme*> formes;
+    std::vector<Shape*> formes;
     Dessin dessin = Dessin(formes);
 
     while(getline(fic, line))
@@ -426,7 +426,7 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             dessin.formes.push_back(new Rectangle(rectangle));
 
         } else if (line.find("cercle") < line.size()){
-            Cercle cercle;
+            Circle cercle;
             float radius;
             float posx;
             float posy;
@@ -461,7 +461,7 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             cercle.setPosx(posx);
             cercle.setPosy(posy);
             cercle.setFill(fill);
-            dessin.formes.push_back(new Cercle(cercle));
+            dessin.formes.push_back(new Circle(cercle));
 
         } else if (line.find("line") < line.size()){
             Segment segment;
@@ -597,7 +597,7 @@ Dessin affichermenucreation(Dessin &dessin){
 }
 
 Dessin creationdessin(){
-    std::vector<Forme*> formes;
+    std::vector<Shape*> formes;
     Dessin dessin = Dessin(formes);
     affichermenucreation(dessin);
     editionmenu(dessin);
@@ -605,7 +605,7 @@ Dessin creationdessin(){
 }
 
 Dessin fusion(Dessin firstDrawing,Dessin secondDrawing){
-    std::vector<Forme*> formes;
+    std::vector<Shape*> formes;
     float maxheight;
     float maxwidth;
 

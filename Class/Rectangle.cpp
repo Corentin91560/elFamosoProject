@@ -33,38 +33,38 @@ void Rectangle::setFill(const std::string &fill) {
 
 std::string Rectangle::getcontent() {
     std::string content;
-    content+="Rectangle de largueur :";
-    content+=std::to_string(width);
-    content+=" , de hauteur :";
-    content+=std::to_string(height);
-    content+=" , de couleur :";
-    content+=fill;
-    content+=" , de position en x :";
-    content+=std::to_string(posx);
-    content+=" , de position en y :";
-    content+=std::to_string(posy);
+    content = "Rectangle de largueur :"
+            + std::to_string(width)
+            + " , de hauteur :"
+            + std::to_string(height)
+            + " , de couleur :"
+            + fill
+            + " , de position en x :"
+            + std::to_string(posx)
+            + " , de position en y :"
+            + std::to_string(posy);
     return content;
 }
 
 std::string Rectangle::getsvgcontent() {
     std::string content;
-    content+="<rect x=\"";
-    content+=std::to_string(posx);
-    content+="\" y=\"";
-    content+=std::to_string(posy);
-    content+="\" width=\"";
-    content+=std::to_string(width);
-    content+="\" height=\"";
-    content+=std::to_string(height);
-    content+="\" fill=\"";
-    content+=fill;
-    content+="\" />\n";
+    content = "<rect x=\""
+            + std::to_string(posx)
+            + "\" y=\""
+            + std::to_string(posy)
+            + "\" width=\""
+            + std::to_string(width)
+            + "\" height=\""
+            + std::to_string(height)
+            + "\" fill=\""
+            + fill
+            + "\" />\n";
     return content;
 }
 
 std::string Rectangle::getjsoncontent() {
     std::string content;
-    content+="{\"type\":\"rectangle\",\"width\":"+std::to_string(width)+",\"height\":"+std::to_string(height)+",\"posx\":"+std::to_string(posx)+",\"posy\":"+std::to_string(posx)+",\"fill\":\""+fill+"\"},";
+    content += "{\"type\":\"rectangle\",\"width\":" + std::to_string(width) + ",\"height\":" + std::to_string(height) + ",\"posx\":" + std::to_string(posx) + ",\"posy\":" + std::to_string(posx) + ",\"fill\":\"" + fill + "\"},";
     return content;
 }
 

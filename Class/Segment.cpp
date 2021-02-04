@@ -6,32 +6,32 @@
 
 std::string Segment::getcontent() {
     std::string content;
-    content+="Ligne 1er point x :";
-    content+=std::to_string(point1.getposX());
-    content+=" y :";
-    content+=std::to_string(point1.getposY());
-    content+=" , 2eme point x :";
-    content+=std::to_string(point2.getposX());
-    content+=" y :";
-    content+=std::to_string(point2.getposY());
-    content+=" , de couleur :";
-    content+=fill;
+    content="Ligne 1er point x :"
+            + std::to_string(point1.getposX())
+            + " y :"
+            + std::to_string(point1.getposY())
+            + " , 2eme point x :"
+            + std::to_string(point2.getposX())
+            + " y :"
+            + std::to_string(point2.getposY())
+            + " , de couleur :"
+            + fill;
     return content;
 }
 
 std::string Segment::getsvgcontent() {
     std::string content;
-    content+="<line x1=\"";
-    content+=std::to_string(point1.getposX());
-    content+="\" y1=\"";
-    content+=std::to_string(point1.getposY());
-    content+="\" x2=\"";
-    content+=std::to_string(point2.getposX());
-    content+="\" y2=\"";
-    content+=std::to_string(point2.getposY());
-    content+="\" stroke=\"";
-    content+=fill;
-    content+="\" />\n";
+    content ="<line x1=\""
+            + std::to_string(point1.getposX())
+            + "\" y1=\""
+            + std::to_string(point1.getposY())
+            + "\" x2=\""
+            + std::to_string(point2.getposX())
+            + "\" y2=\""
+            + std::to_string(point2.getposY())
+            + "\" stroke=\""
+            + fill;
+            + "\" />\n";
     return content;
 }
 

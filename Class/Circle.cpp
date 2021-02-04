@@ -2,33 +2,33 @@
 // Created by corentin delage on 13/01/2021.
 //
 
-#include "Cercle.h"
+#include "Circle.h"
 
-Cercle::~Cercle() {
+Circle::~Circle() {
 
 }
 
-void Cercle::setRadius(float radius) {
-    Cercle::radius = radius;
+void Circle::setRadius(float radius) {
+    Circle::radius = radius;
 }
 
-void Cercle::setPosx(float posx) {
-    Cercle::posx = posx;
+void Circle::setPosx(float posx) {
+    Circle::posx = posx;
 }
 
-void Cercle::setPosy(float posy) {
-    Cercle::posy = posy;
+void Circle::setPosy(float posy) {
+    Circle::posy = posy;
 }
 
-void Cercle::setFill(const std::string &fill) {
-    Cercle::fill = fill;
+void Circle::setFill(const std::string &fill) {
+    Circle::fill = fill;
 }
 
-Cercle::Cercle() {}
+Circle::Circle() {}
 
-std::string Cercle::getcontent() {
+std::string Circle::getcontent() {
     std::string content;
-    content+=" Cercle de raduis : ";
+    content+=" Circle de raduis : ";
     content+=std::to_string(radius);
     content+=" , et son centre est en x : ";
     content+=std::to_string(posx);
@@ -37,7 +37,7 @@ std::string Cercle::getcontent() {
     return content;
 }
 
-std::string Cercle::getsvgcontent() {
+std::string Circle::getsvgcontent() {
     std::string content;
     content+="<circle cx=\"";
     content+=std::to_string(posx);
@@ -51,24 +51,24 @@ std::string Cercle::getsvgcontent() {
     return content;
 }
 
-std::string Cercle::getjsoncontent() {
+std::string Circle::getjsoncontent() {
     std::string content;
     content+="{\"type\":\"cercle\",\"radius\":"+std::to_string(radius)+",\"posx\":"+std::to_string(posx)+",\"posy\":"+std::to_string(posy)+",\"fill\":\""+fill+"\"},";
     return content;
 }
 
-void Cercle::agrandirforme(float coef) {
-    Cercle::radius = radius*coef;
+void Circle::agrandirforme(float coef) {
+    Circle::radius = radius * coef;
 }
 
-void Cercle::reduireforme(float coef) {
-    Cercle::radius = radius/coef;
+void Circle::reduireforme(float coef) {
+    Circle::radius = radius / coef;
 }
 
-void Cercle::movexforme(float coef) {
-    Cercle::posx = posx+coef;
+void Circle::movexforme(float coef) {
+    Circle::posx = posx + coef;
 }
 
-void Cercle::moveyforme(float coef) {
-    Cercle::posy = posy+coef;
+void Circle::moveyforme(float coef) {
+    Circle::posy = posy + coef;
 }

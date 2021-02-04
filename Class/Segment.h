@@ -6,10 +6,10 @@
 #define TEST_SEGMENT_H
 
 
-#include "Forme.h"
+#include "Shape.h"
 #include "Point.h"
 
-class Segment : public Forme{
+class Segment : public Shape{
 private:
     Point point1;
     Point point2;

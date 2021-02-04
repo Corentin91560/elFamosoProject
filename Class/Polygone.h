@@ -8,9 +8,9 @@
 
 #include <vector>
 #include "Point.h"
-#include "Forme.h"
+#include "Shape.h"
 
-class Polygone : public Forme{
+class Polygone : public Shape{
 public:
     std::vector<Point*> listePoints;//TODO faire le choix du nombre de points : taille tot = taille choisie + 1 pour le retour au pt de départ
 

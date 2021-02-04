@@ -7,7 +7,7 @@
 
 
 #include <vector>
-#include "Forme.h"
+#include "Shape.h"
 
 class Dessin {
 private:
@@ -17,9 +17,9 @@ public:
 
     float getWidth() const;
 
-    Dessin(const std::vector<Forme *> &formes, float height, float width);
+    Dessin(const std::vector<Shape *> &formes, float height, float width);
 
-    std::vector<Forme*> formes;
+    std::vector<Shape*> formes;
     float height;
     float width;
 
@@ -27,7 +27,7 @@ public:
 
     void setWidth(float width);
 
-    Dessin(const std::vector<Forme *> &formes);
+    Dessin(const std::vector<Shape *> &formes);
 
 };
 

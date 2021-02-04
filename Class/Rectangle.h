@@ -6,11 +6,11 @@
 #define ELFAMOSOPROJECT_RECTANGLE_H
 
 #include <string>
-#include "Forme.h"
+#include "Shape.h"
 
 
 
-class Rectangle : public Forme{
+class Rectangle : public Shape{
 public:
 
     float width;

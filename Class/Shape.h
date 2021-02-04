@@ -7,14 +7,14 @@
 
 #include <string>
 
-class Forme {
+class Shape {
 protected:
     float posx;
     float posy;
     std::string fill;
 
 public:
-    virtual ~Forme();
+    virtual ~Shape();
 
     virtual void setPosx(float posx) = 0;
 
