@@ -4,29 +4,23 @@
 
 #ifndef TEST_POINT_H
 #define TEST_POINT_H
-
-
 #include <string>
 
 class Point {
-private :
-    float posx {};
-    float posy {};
+
 
 public:
-    Point(float x, float y);
+    float posx ;
+    float posy ;
 
+    Point(float x, float y);
     Point();
 
     void setPosx(float posx);
-
     void setPosy(float posy);
-
     float getposX();
     float getposY();
-
     std::string getcontent();
-
 
 };
 

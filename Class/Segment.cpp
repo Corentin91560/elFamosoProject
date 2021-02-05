@@ -4,6 +4,25 @@
 
 #include "Segment.h"
 
+
+Segment::Segment() {}
+
+void Segment::setPoint1(const Point &point1) {
+    Segment::point1 = point1;
+}
+
+void Segment::setPoint2(const Point &point2) {
+    Segment::point2 = point2;
+}
+
+void Segment::setPosx(float posx) {
+
+}
+
+void Segment::setPosy(float posy) {
+
+}
+
 std::string Segment::getContent() {
     std::string content;
     content="Ligne 1er point x :"
@@ -30,45 +49,30 @@ std::string Segment::getSVGContent() {
             + "\" y2=\""
             + std::to_string(point2.getposY())
             + "\" stroke=\""
-            + fill;
+            + fill
             + "\" />\n";
     return content;
 }
 
 std::string Segment::getJsonContent() {
     std::string content;
-    content+="{\"type\":\"line\",\"x1\":"+std::to_string(point1.getposX())+",\"y1\":"+std::to_string(point1.getposY())+",\"x2\":"+std::to_string(point2.getposX())+",\"y2\":"+std::to_string(point2.getposY())+",\"fill\":\""+fill+"\"},";
+    content = "{\"type\":\"line\",\"x1\":"
+            +std::to_string(point1.getposX())
+            +",\"y1\":"
+            +std::to_string(point1.getposY())
+            +",\"x2\":"
+            +std::to_string(point2.getposX())
+            +",\"y2\":"
+            +std::to_string(point2.getposY())
+            +",\"fill\":\""
+            +fill
+            +"\"},";
     return content;
-}
-
-
-Segment::Segment(const Point &point1, const Point &point2) : point1(point1), point2(point2) {}
-
-Segment::~Segment() {
-
-}
-
-void Segment::setPoint1(const Point &point1) {
-    Segment::point1 = point1;
-}
-
-void Segment::setPoint2(const Point &point2) {
-    Segment::point2 = point2;
-}
-
-void Segment::setPosx(float posx) {
-
-}
-
-void Segment::setPosy(float posy) {
-
 }
 
 void Segment::setFill(const std::string &fill) {
     Segment::fill = fill;
 }
-
-Segment::Segment() {}
 
 void Segment::extendShape(float coef) {
 

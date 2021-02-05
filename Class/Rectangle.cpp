@@ -6,11 +6,6 @@
 
 Rectangle::Rectangle() {}
 
-
-Rectangle::~Rectangle() {
-
-}
-
 void Rectangle::setWidth(float width) {
     Rectangle::width = width;
 }
@@ -64,7 +59,17 @@ std::string Rectangle::getSVGContent() {
 
 std::string Rectangle::getJsonContent() {
     std::string content;
-    content += "{\"type\":\"rectangle\",\"width\":" + std::to_string(width) + ",\"height\":" + std::to_string(height) + ",\"posx\":" + std::to_string(posx) + ",\"posy\":" + std::to_string(posx) + ",\"fill\":\"" + fill + "\"},";
+    content = "{\"type\":\"rectangle\",\"width\":"
+            + std::to_string(width)
+            + ",\"height\":"
+            + std::to_string(height)
+            + ",\"posx\":"
+            + std::to_string(posx)
+            + ",\"posy\":"
+            + std::to_string(posy)
+            + ",\"fill\":\""
+            + fill
+            + "\"},";
     return content;
 }
 

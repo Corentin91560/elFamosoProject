@@ -8,18 +8,13 @@
 #include <string>
 
 class Shape {
-protected:
+public:
     float posx;
     float posy;
     std::string fill;
 
-public:
-    virtual ~Shape();
-
     virtual void setPosx(float posx) = 0;
-
     virtual void setPosy(float posy) = 0;
-
     virtual void setFill(const std::string &fill) = 0;
     virtual std::string getContent()=0;
     virtual std::string getSVGContent()=0;

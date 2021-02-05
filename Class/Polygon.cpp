@@ -6,8 +6,6 @@
 
 Polygon::Polygon() {}
 
-Polygon::~Polygon() {}
-
 void Polygon::setPosx(float posx) {
     Polygon::posx = posx;
 }
@@ -16,19 +14,19 @@ void Polygon::setPosy(float posy) {
     Polygon::posy = posy;
 }
 
-void Polygon::setFill(const std::string &fill) {
-    Polygon::fill = fill;
-}
-
 void Polygon::setListPoints(std::vector<Point*> liste) {
     Polygon::listPoints = liste;
 }
 
+void Polygon::setFill(const std::string &fill) {
+    Polygon::fill = fill;
+}
+
 std::string Polygon::getContent(){
     std::string content;
-    content+="Polygon avec "
-            +std::to_string(listPoints.size())
-            +" cotés";
+    content = " Polygon avec "
+            + std::to_string(listPoints.size())
+            + " cotés";
     return content;
 }
 
@@ -47,11 +45,11 @@ std::string Polygon::getSVGContent() {
         listePointsSvg += std::to_string(point->getposY());
     }
 
-    content="<polyline points=\""
-            +listePointsSvg
-            +"\" fill=\""
-            +fill
-            +"\" />\n";
+    content = "<polyline points=\""
+            + listePointsSvg
+            + "\" fill=\""
+            + fill
+            + "\" />\n";
     return content;
 }
 
@@ -70,7 +68,11 @@ std::string Polygon::getJsonContent() {
         listePointsSvg += std::to_string(point->getposY());
     }
 
-    content+="{\"type\":\"polygone\",\"point\":\""+listePointsSvg+"\",\"fill\":\""+fill+"\"},";
+    content = "{\"type\":\"polygone\",\"point\":\""
+            + listePointsSvg
+            + "\",\"fill\":\""
+            + fill
+            + "\"},";
     return content;
 }
 

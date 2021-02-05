@@ -6,6 +6,7 @@
 
 Drawing::Drawing(const std::vector<Shape *> &formes, float height, float width) : listShapes(formes), height(height),
                                                                                   width(width) {}
+Drawing::Drawing(const std::vector<Shape *> &shapes) : listShapes(shapes) {}
 
 float Drawing::getHeight() const {
     return height;
@@ -22,7 +23,3 @@ void Drawing::setHeight(float height) {
 void Drawing::setWidth(float width) {
     Drawing::width = width;
 }
-
-Drawing::Drawing(const std::vector<Shape *> &shapes) : listShapes(shapes) {}
-
-
