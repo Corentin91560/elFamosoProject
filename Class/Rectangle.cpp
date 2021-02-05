@@ -31,7 +31,7 @@ void Rectangle::setFill(const std::string &fill) {
     Rectangle::fill = fill;
 }
 
-std::string Rectangle::getcontent() {
+std::string Rectangle::getContent() {
     std::string content;
     content = "Rectangle de largueur :"
             + std::to_string(width)
@@ -46,7 +46,7 @@ std::string Rectangle::getcontent() {
     return content;
 }
 
-std::string Rectangle::getsvgcontent() {
+std::string Rectangle::getSVGContent() {
     std::string content;
     content = "<rect x=\""
             + std::to_string(posx)
@@ -62,28 +62,28 @@ std::string Rectangle::getsvgcontent() {
     return content;
 }
 
-std::string Rectangle::getjsoncontent() {
+std::string Rectangle::getJsonContent() {
     std::string content;
     content += "{\"type\":\"rectangle\",\"width\":" + std::to_string(width) + ",\"height\":" + std::to_string(height) + ",\"posx\":" + std::to_string(posx) + ",\"posy\":" + std::to_string(posx) + ",\"fill\":\"" + fill + "\"},";
     return content;
 }
 
-void Rectangle::agrandirforme(float coef) {
+void Rectangle::extendShape(float coef) {
     Rectangle::width = width*coef;
     Rectangle::height = height*coef;
 
 }
 
-void Rectangle::reduireforme(float coef) {
+void Rectangle::reduceShape(float coef) {
     Rectangle::width = width/coef;
     Rectangle::height = height/coef;
 }
 
-void Rectangle::movexforme(float coef) {
+void Rectangle::moveShapeX(float coef) {
     Rectangle::posx = posx+coef;
 }
 
-void Rectangle::moveyforme(float coef) {
+void Rectangle::moveShapeY(float coef) {
     Rectangle::posy = posy+coef;
 }
 

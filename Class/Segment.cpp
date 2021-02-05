@@ -4,7 +4,7 @@
 
 #include "Segment.h"
 
-std::string Segment::getcontent() {
+std::string Segment::getContent() {
     std::string content;
     content="Ligne 1er point x :"
             + std::to_string(point1.getposX())
@@ -19,7 +19,7 @@ std::string Segment::getcontent() {
     return content;
 }
 
-std::string Segment::getsvgcontent() {
+std::string Segment::getSVGContent() {
     std::string content;
     content ="<line x1=\""
             + std::to_string(point1.getposX())
@@ -35,7 +35,7 @@ std::string Segment::getsvgcontent() {
     return content;
 }
 
-std::string Segment::getjsoncontent() {
+std::string Segment::getJsonContent() {
     std::string content;
     content+="{\"type\":\"line\",\"x1\":"+std::to_string(point1.getposX())+",\"y1\":"+std::to_string(point1.getposY())+",\"x2\":"+std::to_string(point2.getposX())+",\"y2\":"+std::to_string(point2.getposY())+",\"fill\":\""+fill+"\"},";
     return content;
@@ -70,7 +70,7 @@ void Segment::setFill(const std::string &fill) {
 
 Segment::Segment() {}
 
-void Segment::agrandirforme(float coef) {
+void Segment::extendShape(float coef) {
 
     point1.setPosx(point1.getposX()*coef);
     point1.setPosy(point1.getposY()*coef);
@@ -78,19 +78,19 @@ void Segment::agrandirforme(float coef) {
     point2.setPosy(point2.getposY()*coef);
 }
 
-void Segment::reduireforme(float coef) {
+void Segment::reduceShape(float coef) {
     point1.setPosx(point1.getposX()/coef);
     point1.setPosy(point1.getposY()/coef);
     point2.setPosx(point2.getposX()/coef);
     point2.setPosy(point2.getposY()/coef);
 }
 
-void Segment::movexforme(float coef) {
+void Segment::moveShapeX(float coef) {
     point1.setPosx(point1.getposX()+coef);
     point2.setPosx(point2.getposX()+coef);
 }
 
-void Segment::moveyforme(float coef) {
+void Segment::moveShapeY(float coef) {
     point1.setPosy(point1.getposY()+coef);
     point2.setPosy(point2.getposY()+coef);
 }

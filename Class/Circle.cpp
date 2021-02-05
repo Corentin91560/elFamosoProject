@@ -26,7 +26,7 @@ void Circle::setFill(const std::string &fill) {
 
 Circle::Circle() {}
 
-std::string Circle::getcontent() {
+std::string Circle::getContent() {
     std::string content;
         +" Cercle de raduis : "
         +std::to_string(radius)
@@ -37,7 +37,7 @@ std::string Circle::getcontent() {
     return content;
 }
 
-std::string Circle::getsvgcontent() {
+std::string Circle::getSVGContent() {
     std::string content;
     content="<circle cx=\""
             +std::to_string(posx)
@@ -51,24 +51,24 @@ std::string Circle::getsvgcontent() {
     return content;
 }
 
-std::string Circle::getjsoncontent() {
+std::string Circle::getJsonContent() {
     std::string content;
     content="{\"type\":\"cercle\",\"radius\":"+std::to_string(radius)+",\"posx\":"+std::to_string(posx)+",\"posy\":"+std::to_string(posy)+",\"fill\":\""+fill+"\"},";
     return content;
 }
 
-void Circle::agrandirforme(float coef) {
+void Circle::extendShape(float coef) {
     Circle::radius = radius * coef;
 }
 
-void Circle::reduireforme(float coef) {
+void Circle::reduceShape(float coef) {
     Circle::radius = radius / coef;
 }
 
-void Circle::movexforme(float coef) {
+void Circle::moveShapeX(float coef) {
     Circle::posx = posx + coef;
 }
 
-void Circle::moveyforme(float coef) {
+void Circle::moveShapeY(float coef) {
     Circle::posy = posy + coef;
 }

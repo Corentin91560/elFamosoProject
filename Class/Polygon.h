@@ -1,20 +1,22 @@
 //
-// Created by corentin delage on 13/01/2021.
+// Created by Sandrine Patin on 22/01/2021.
 //
 
-#ifndef ELFAMOSOPROJECT_CERCLE_H
-#define ELFAMOSOPROJECT_CERCLE_H
+#ifndef ELFAMOSOPROJECT_POLYGONE_H
+#define ELFAMOSOPROJECT_POLYGONE_H
 
 
+#include <vector>
+#include "Point.h"
 #include "Shape.h"
 
-class Circle : public Shape{
+class Polygon : public Shape{
 public:
-    float radius;
+    std::vector<Point*> listPoints;//TODO faire le choix du nombre de points : taille tot = taille choisie + 1 pour le retour au pt de départ
 
-    Circle();
+    Polygon();
 
-    virtual ~Circle();
+    virtual ~Polygon();
 
     void setPosx(float posx) override;
 
@@ -22,7 +24,7 @@ public:
 
     void setFill(const std::string &fill) override;
 
-    void setRadius(float radius);
+    void setListPoints(std::vector<Point*> liste);
 
     std::string getContent() override;
     std::string getSVGContent() override;
@@ -39,4 +41,4 @@ public:
 };
 
 
-#endif //ELFAMOSOPROJECT_CERCLE_H
+#endif //ELFAMOSOPROJECT_POLYGONE_H

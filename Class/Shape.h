@@ -21,14 +21,13 @@ public:
     virtual void setPosy(float posy) = 0;
 
     virtual void setFill(const std::string &fill) = 0;
-    virtual std::string getcontent()=0;
-    virtual std::string getsvgcontent()=0;
-    virtual std::string getjsoncontent()=0;
-    virtual void agrandirforme(float coef)=0;
-    virtual void reduireforme(float coef)=0;
-    virtual void movexforme(float coef)=0;
-    virtual void moveyforme(float coef)=0;
-
+    virtual std::string getContent()=0;
+    virtual std::string getSVGContent()=0;
+    virtual std::string getJsonContent()=0;
+    virtual void extendShape(float coef)=0;
+    virtual void reduceShape(float coef)=0;
+    virtual void moveShapeX(float coef)=0;
+    virtual void moveShapeY(float coef)=0;
 };
 
 #endif //ELFAMOSOPROJECT_FORME_H

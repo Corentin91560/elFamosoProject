@@ -31,19 +31,19 @@ public:
 
     void setFill(const std::string &fill) override;
 
-    std::string getcontent() override;
+    std::string getContent() override;
 
-    std::string getsvgcontent() override;
+    std::string getSVGContent() override;
 
-    std::string getjsoncontent() override;
+    std::string getJsonContent() override;
 
-    void agrandirforme(float coef) override;
+    void extendShape(float coef) override;
 
-    void reduireforme(float coef) override;
+    void reduceShape(float coef) override;
 
-    void movexforme(float coef) override;
+    void moveShapeX(float coef) override;
 
-    void moveyforme(float coef) override;
+    void moveShapeY(float coef) override;
 
 };
 

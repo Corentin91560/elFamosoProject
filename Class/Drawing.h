@@ -9,7 +9,7 @@
 #include <vector>
 #include "Shape.h"
 
-class Dessin {
+class Drawing {
 private:
 
 public:
@@ -17,9 +17,9 @@ public:
 
     float getWidth() const;
 
-    Dessin(const std::vector<Shape *> &formes, float height, float width);
+    Drawing(const std::vector<Shape *> &formes, float height, float width);
 
-    std::vector<Shape*> formes;
+    std::vector<Shape*> listShapes;
     float height;
     float width;
 
@@ -27,7 +27,7 @@ public:
 
     void setWidth(float width);
 
-    Dessin(const std::vector<Shape *> &formes);
+    Drawing(const std::vector<Shape *> &shapes);
 
 };
 

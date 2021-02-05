@@ -1,19 +1,20 @@
 #include <iostream>
 #include <list>
 #include "Class/Rectangle.h"
-#include "Class/Dessin.h"
+#include "Class/Drawing.h"
 #include "Class/Circle.h"
-#include "Class/Polygone.h"
+#include "Class/Polygon.h"
 #include "Class/Segment.h"
 #include <fstream>
 #include <sstream>
 #include <string>
 
+void exportToSVG(Drawing currentDrawing);
+void saveAsJson(Drawing drawing);
 
-void exporttosvg(Dessin currentDessin);
-void saveasjson(Dessin currentDessin);
+int checkEntry(char entry);
 
-void affichemenu(){
+void displayPrincipalMenu(){
     std::cout << "MENU : \n" << std::endl;
 
     std::cout << "Créer un dessin : 1" << std::endl;
@@ -22,7 +23,7 @@ void affichemenu(){
     std::cout << "Quitter : 9" << std::endl;
 }
 
-void affichemenuresizemove(){
+void displayMenuModifyDrawing(){
     std::cout << "MENU : \n" << std::endl;
 
     std::cout << "Agrandir : 1" << std::endl;
@@ -32,8 +33,7 @@ void affichemenuresizemove(){
     std::cout << "Quitter : 9" << std::endl;
 }
 
-void affichemenuedition(){
-
+void displayEditionMenu(){
     std::cout << "MENU EDITION DESSIN : \n" << std::endl;
 
     std::cout << "Rajouter une forme : 1" << std::endl;
@@ -43,99 +43,97 @@ void affichemenuedition(){
     std::cout << "Voir le contenu du dessin : 5" << std::endl;
     std::cout << "Deplacer/Agrandir : 6" << std::endl;
     std::cout << "Quitter sans sauvegarder : 9" << std::endl;
-
 }
 
-void addformemenu(){
+void addShapeMenu(){
     std::cout << "CHOIX DE FORME : \n" << std::endl;
 
     std::cout << "Rectangle 1" << std::endl;
     std::cout << "Circle 2" << std::endl;
     std::cout << "Segment 3" << std::endl;
-    std::cout << "Polygone 4" << std::endl;
+    std::cout << "Polygon 4" << std::endl;
     std::cout << "Retour : 9" << std::endl;
-
 }
 
-void exporttosvg(Dessin currentDessin) {
-    std::string filename;
-    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
-    std::cin>>filename;
-    std::ofstream outfile(filename+".svg");
+void exportToSVG(Drawing currentDrawing) {
+    std::string fileName;
+    std::cout << "Veuillez saisir le nom du fichier" << std::endl;
+    std::cin >> fileName;
+    std::ofstream outfile(fileName + ".svg");
     outfile << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
-               "<svg width=\""<<currentDessin.width<<"\" height=\""<<currentDessin.height<<"\" xmlns=\"http://www.w3.org/2000/svg\">\n"
-                                                                                           "<rect fill=\"#fff\" stroke=\"#000\" x=\"0\" y=\"0\" width=\""<<currentDessin.width<<"\" height=\""<<currentDessin.height<<"\"/>\n"<<std::endl;
+               "<svg width=\"" << currentDrawing.width << "\" height=\"" << currentDrawing.height << "\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+                                                                                           "<rect fill=\"#fff\" stroke=\"#000\" x=\"0\" y=\"0\" width=\"" << currentDrawing.width << "\" height=\"" << currentDrawing.height << "\"/>\n" << std::endl;
 
-    for (int i = 0; i < currentDessin.formes.size(); ++i) {
-        outfile<<currentDessin.formes[i]->getsvgcontent();
+    for (int i = 0; i < currentDrawing.listShapes.size(); ++i) {
+        outfile << currentDrawing.listShapes[i]->getSVGContent();
     }
 
     outfile<<"</svg>";
 }
 
-void saveasjson(Dessin dessin){
-    std::string filename;
-    std::cout<<"veuillez saisir le nom du fichier"<<std::endl;
-    std::cin>>filename;
-    std::ofstream outfile(filename+".json");
-    outfile << "{"<<std::endl;
-    outfile << "\"height_dessin\":"+std::to_string(dessin.getHeight())+",\n";
-    outfile << "\"width_dessin\":"+std::to_string(dessin.getWidth())+",\n";
+void saveAsJson(Drawing drawing){
+    std::string fileName;
+    std::cout << "veuillez saisir le nom du fichier" << std::endl;
+    std::cin >> fileName;
+    std::ofstream outfile(fileName + ".json");
+    outfile << "{" << std::endl;
+    outfile << "\"height_dessin\":" + std::to_string(drawing.getHeight()) + ",\n";
+    outfile << "\"width_dessin\":" + std::to_string(drawing.getWidth()) + ",\n";
 
-    for (int i = 0; i < dessin.formes.size(); ++i) {
-        if (i+1==dessin.formes.size()){
-            outfile<<"\""+std::to_string(i+1)+"\":";
-            std::string content = dessin.formes[i]->getjsoncontent();
+    for (int i = 0; i < drawing.listShapes.size(); ++i) {
+        if (i+1 == drawing.listShapes.size()){
+            outfile << "\""+std::to_string(i+1) + "\":";
+            std::string content = drawing.listShapes[i]->getJsonContent();
             content.pop_back();
-            outfile<<content;
+            outfile << content;
         }else{
-            outfile<<"\""+std::to_string(i+1)+"\":";
-            outfile<<dessin.formes[i]->getjsoncontent();
-            outfile<<"\n";
+            outfile << "\""+std::to_string(i+1) + "\":";
+            outfile << drawing.listShapes[i]->getJsonContent();
+            outfile << "\n";
         }
     }
 
-    outfile<<"\n}";
+    outfile << "\n}";
 }
 
-Dessin agrandir(Dessin dessin){
+Drawing extendDrawing(Drawing drawing){
     float coef;
-    std::cout<<"veuillez saisir le coefficient"<<std::endl;
-    std::cin>>coef;
-    for (int i = 0; i < dessin.formes.size(); ++i) {
-        dessin.formes[i]->agrandirforme(coef);
+    std::cout << "veuillez saisir le coefficient" << std::endl;
+    std::cin >> coef;
+    for (int i = 0; i < drawing.listShapes.size(); ++i) {
+        drawing.listShapes[i]->extendShape(coef);
     }
-    return dessin;
+    return drawing;
 }
 
-Dessin reduire(Dessin dessin){
+Drawing reduceDrawing(Drawing drawing){
     float coef;
-    std::cout<<"veuillez saisir le coefficient"<<std::endl;
-    std::cin>>coef;
-    for (int i = 0; i < dessin.formes.size(); ++i) {
-        dessin.formes[i]->reduireforme(coef);
+    std::cout << "veuillez saisir le coefficient" << std::endl;
+    std::cin >> coef;
+    for (int i = 0; i < drawing.listShapes.size(); ++i) {
+        drawing.listShapes[i]->reduceShape(coef);
     }
-    return dessin;
+    return drawing;
 }
 
-Dessin movex(Dessin dessin){
+Drawing moveX(Drawing drawing){
     float coef;
-    std::cout<<"veuillez saisir le coefficient"<<std::endl;
-    std::cin>>coef;
-    for (int i = 0; i < dessin.formes.size(); ++i) {
-        dessin.formes[i]->movexforme(coef);
+    std::cout << "Veuillez saisir le coefficient" << std::endl;
+    std::cin >> coef;
+    for (int i = 0; i < drawing.listShapes.size(); ++i) {
+        drawing.listShapes[i]->moveShapeX(coef);
     }
-    return dessin;
+    return drawing;
 }
 
-Dessin movey(Dessin dessin){
+Drawing moveY(Drawing drawing){
     float coef;
-    std::cout<<"veuillez saisir le coefficient"<<std::endl;
-    std::cin>>coef;
-    for (int i = 0; i < dessin.formes.size(); ++i) {
-        dessin.formes[i]->moveyforme(coef);
+    std::cout << "Veuillez saisir le coefficient" << std::endl;
+    std::cin >> coef;
+    for (int i = 0; i < drawing.listShapes.size(); ++i) {
+        drawing.listShapes[i]->moveShapeY(coef);
     }
-    return dessin;
+    return drawing;
 }
 
 Rectangle createRectangle(){
@@ -163,8 +161,8 @@ Rectangle createRectangle(){
     rectangle.setFill(fill);
     return rectangle;
 }
-Circle createCercle(){
-    Circle cercle;
+Circle createCircle(){
+    Circle circle;
     float radius;
     float posx;
     float posy;
@@ -178,11 +176,11 @@ Circle createCercle(){
     std::cin >> posy ;
     std::cout << "fill :" << std::endl;
     std::cin >> fill;
-    cercle.setRadius(radius);
-    cercle.setPosx(posx);
-    cercle.setPosy(posy);
-    cercle.setFill(fill);
-    return cercle;
+    circle.setRadius(radius);
+    circle.setPosx(posx);
+    circle.setPosy(posy);
+    circle.setFill(fill);
+    return circle;
 }
 
 Segment createLine(){
@@ -209,20 +207,20 @@ Segment createLine(){
     return line;
 }
 
-Polygone createPolygone(){
-    Polygone polygone;
-    std::vector<Point*> listePoints;
-    int nbPoints;
+Polygon createPolygon(){
+    Polygon polygon;
+    std::vector<Point*> listPoints;
+    int pointsNumber;
     std::string fill;
     std::cout << "MENU CREATION POLYGONE : \n" << std::endl;
     std::cout << "Nombre de points:" << std::endl;
-    std::cin >> nbPoints;
+    std::cin >> pointsNumber;
     std::cout << "fill :" << std::endl;
     std::cin >> fill;
-    polygone.setFill(fill);
+    polygon.setFill(fill);
 
     int i = 0;
-    while (i < nbPoints){
+    while (i < pointsNumber){
         float x;
         float y;
         std::cout << "Coordonnées du point n°" << i+1 << std::endl;
@@ -231,52 +229,52 @@ Polygone createPolygone(){
         std::cout << "y :" << std::endl;
         std::cin >> y;
         Point* point = new Point(x, y);
-        listePoints.push_back(point);
+        listPoints.push_back(point);
         i++;
     }
-    polygone.setListePoints(listePoints);
-    return polygone;
-
+    polygon.setListPoints(listPoints);
+    return polygon;
 }
 
-void describeDessin(Dessin &dessin){
-    std::cout<<"Hauteur du dessin : "<<dessin.getHeight()<<" et Largueur : "<<dessin.getWidth()<<std::endl;
-    for (int i = 0; i < dessin.formes.size(); ++i) {
-        std::cout<<"n°"<<i+1<<dessin.formes[i]->getcontent()<<std::endl;
+void describeDrawing(Drawing &drawing){
+    std::cout << "Hauteur du drawing : " << drawing.getHeight() << " et Largueur : " << drawing.getWidth() << std::endl;
+    for (int i = 0; i < drawing.listShapes.size(); ++i) {
+        std::cout << "n°" <<i+1 << drawing.listShapes[i]->getContent() << std::endl;
     }
 }
 
+Drawing removeElement(Drawing &drawing){
+    int elementNumber;
+    std::cout << "Numéro de l'element :" << std::endl;
+    std::cin >> elementNumber;
 
-
-Dessin removeElement(Dessin &dessin){
-    int elementnumber;
-    std::cout << "numero de l'element :" << std::endl;
-    std::cin >> elementnumber;
-
-    dessin.formes.erase(dessin.formes.begin()+elementnumber-1);
-    return dessin;
+    drawing.listShapes.erase(drawing.listShapes.begin() + elementNumber - 1);
+    return drawing;
 }
 
-Dessin resizemove(Dessin dessin){
+Drawing modifyDrawing(Drawing drawing){
     int selection = 0;
     while (true){
-        affichemenuresizemove();
-        std::cin >> selection;
+        displayMenuModifyDrawing();
+        char entry;
+        std::cin >> entry;
+        selection = checkEntry(entry);
+
         switch (selection) {
             case 1:
-                dessin = agrandir(dessin);
+                drawing = extendDrawing(drawing);
                 break;
             case 2:
-                dessin = reduire(dessin);
+                drawing = reduceDrawing(drawing);
                 break;
             case 3:
-                dessin = movex(dessin);
+                drawing = moveX(drawing);
                 break;
             case 4:
-                dessin = movey(dessin);
+                drawing = moveY(drawing);
                 break;
             case 9:
-                return dessin;
+                return drawing;
             default:
                 std::cout << "Entrée incorrecte, veuillez choisir une valeur appropriée\n" << std::endl;
                 break;
@@ -284,30 +282,29 @@ Dessin resizemove(Dessin dessin){
     }
 }
 
-Dessin selectforme(Dessin dessin){
+Drawing selectNewShape(Drawing drawing){
     int selection = 0;
     while (true){
-        addformemenu();
-        std::cin >> selection;
+        addShapeMenu();
+        char entry;
+        std::cin >> entry;
+        selection = checkEntry(entry);
+
         switch (selection) {
             case 1:
-                dessin.formes.push_back(new Rectangle(createRectangle()));
+                drawing.listShapes.push_back(new Rectangle(createRectangle()));
                 break;
             case 2:
-                dessin.formes.push_back(new Circle(createCercle()));
-//cercle
+                drawing.listShapes.push_back(new Circle(createCircle()));
                 break;
             case 3:
-                dessin.formes.push_back(new Segment(createLine()));
-//segment
+                drawing.listShapes.push_back(new Segment(createLine()));
                 break;
             case 4:
-                dessin.formes.push_back(new Polygone(createPolygone()));
-//polygone
+                drawing.listShapes.push_back(new Polygon(createPolygon()));
                 break;
             case 9:
-                return dessin;
-//polygone
+                return drawing;
             default:
                 std::cout << "Entrée incorrecte, veuillez choisir une valeur appropriée\n" << std::endl;
                 break;
@@ -315,37 +312,37 @@ Dessin selectforme(Dessin dessin){
     }
 }
 
-void editionmenu(Dessin &dessin){
-
+void drawingEditionMenu(Drawing &drawing){
     int selection = 0;
     bool selectable = false;
     while (!selectable){
-        affichemenuedition();
-        std::cin >> selection;
+        displayEditionMenu();
+        char entry;
+        std::cin >> entry;
+        selection = checkEntry(entry);
+
         switch (selection) {
             case 1:
-                dessin = Dessin(selectforme(dessin));
+                drawing = Drawing(selectNewShape(drawing));
                 break;
             case 2:
-                saveasjson(dessin);
+                saveAsJson(drawing);
                 break;
             case 3:
-                exporttosvg(dessin);
+                exportToSVG(drawing);
                 break;
             case 4:
-                removeElement(dessin);
-//dessin
+                removeElement(drawing);
                 break;
             case 5:
-                describeDessin(dessin);
-//dessin
+                describeDrawing(drawing);
                 break;
             case 6:
-                resizemove(dessin);
+                modifyDrawing(drawing);
                 break;
             case 9:
                 selectable = true;
-                affichemenu();
+                displayPrincipalMenu();
                 break;
             default:
                 std::cout << "Entrée incorrecte, veuillez choisir une valeur appropriée\n" << std::endl;
@@ -356,33 +353,33 @@ void editionmenu(Dessin &dessin){
 
 std::string getValue(const std::string& property){
     std::istringstream iss2(property);
-    std::string mot;
+    std::string word;
     std::string res;
     int i = 0;
-    while ( std::getline( iss2, mot, ':' ) )
+    while ( std::getline(iss2, word, ':' ) )
     {
-        if(i!=0){ res = mot; }
+        if(i!=0){ res = word; }
         i++;
     }
     return res;
 }
 
-Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
+Drawing readJson(std::ifstream &file){ //TODO CleanCode !!!!!
     std::string line;
 
-    std::vector<Shape*> formes;
-    Dessin dessin = Dessin(formes);
+    std::vector<Shape*> listShapes;
+    Drawing drawing = Drawing(listShapes);
 
-    while(getline(fic, line))
-    {//TODO correct line to text between {}
+    while(getline(file, line))
+    {
         if(line.find("height_dessin") < line.size()){
             std::string value = getValue(line);
             value.pop_back();
-            dessin.setHeight(std::stod(value));
+            drawing.setHeight(std::stod(value));
         } else if(line.find("width_dessin") < line.size()) {
             std::string value = getValue(line);
             value.pop_back();
-            dessin.setWidth(std::stoi(getValue(line)));
+            drawing.setWidth(std::stod(getValue(line)));
         } else if(line.find("rectangle") < line.size()){
             Rectangle rectangle;
             float height;
@@ -398,24 +395,24 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             std::string property;
             while(getline(iss, property, ',')){
                 if(property.find("width") < property.size()){
-                    width = std::stoi(getValue(property));
+                    width = std::stod(getValue(property));
 
                 } else if(property.find("height") < property.size()){
-                    height = std::stoi(getValue(property));
+                    height = std::stod(getValue(property));
 
                 } else if(property.find("posx") < property.size()){
-                    posx = std::stoi(getValue(property));
+                    posx = std::stod(getValue(property));
 
                 } else if(property.find("posy") < property.size()){
-                    posy = std::stoi(getValue(property));
+                    posy = std::stod(getValue(property));
 
                 } else if(property.find("fill") < property.size()){
                     std::string value = getValue(property);
 
-                    std::size_t firstpos = value.find("\"");
-                    std::size_t secondpos = value.find("\"", firstpos+1);
+                    std::size_t firstPos = value.find("\"");
+                    std::size_t secondPos = value.find("\"", firstPos + 1);
 
-                    fill = value.substr (firstpos+1, secondpos-firstpos-1);
+                    fill = value.substr (firstPos + 1, secondPos - firstPos - 1);
                 }
             }
             rectangle.setWidth(width);
@@ -423,7 +420,7 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             rectangle.setPosx(posx);
             rectangle.setPosy(posy);
             rectangle.setFill(fill);
-            dessin.formes.push_back(new Rectangle(rectangle));
+            drawing.listShapes.push_back(new Rectangle(rectangle));
 
         } else if (line.find("cercle") < line.size()){
             Circle cercle;
@@ -440,20 +437,20 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             while(getline(iss, property, ',')){
 
                 if(property.find("radius") < property.size()){
-                    radius = std::stoi(getValue(property));
+                    radius = std::stod(getValue(property));
                 } else if(property.find("posx") < property.size()){
-                    posx = std::stoi(getValue(property));
+                    posx = std::stod(getValue(property));
 
                 } else if(property.find("posy") < property.size()){
-                    posy = std::stoi(getValue(property));
+                    posy = std::stod(getValue(property));
 
                 } else if(property.find("fill") < property.size()){
                     std::string value = getValue(property);
 
-                    std::size_t firstpos = value.find("\"");
-                    std::size_t secondpos = value.find("\"", firstpos+1);
+                    std::size_t firstPos = value.find("\"");
+                    std::size_t secondPos = value.find("\"", firstPos + 1);
 
-                    fill = value.substr (firstpos+1, secondpos-firstpos-1);
+                    fill = value.substr (firstPos + 1, secondPos - firstPos - 1);
                 }
 
             }
@@ -461,7 +458,7 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             cercle.setPosx(posx);
             cercle.setPosy(posy);
             cercle.setFill(fill);
-            dessin.formes.push_back(new Circle(cercle));
+            drawing.listShapes.push_back(new Circle(cercle));
 
         } else if (line.find("line") < line.size()){
             Segment segment;
@@ -479,36 +476,36 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
             while(getline(iss, property, ',')){
 
                 if(property.find("x1") < property.size()){
-                    x1 = std::stoi(getValue(property));
+                    x1 = std::stod(getValue(property));
                 } else if(property.find("y1") < property.size()){
-                    y1 = std::stoi(getValue(property));
+                    y1 = std::stod(getValue(property));
                 } else if(property.find("x2") < property.size()){
-                    x2 = std::stoi(getValue(property));
+                    x2 = std::stod(getValue(property));
                 } else if(property.find("y2") < property.size()){
-                    y2 = std::stoi(getValue(property));
+                    y2 = std::stod(getValue(property));
                 } else if(property.find("fill") < property.size()){
                     std::string value = getValue(property);
 
-                    std::size_t firstpos = value.find("\"");
-                    std::size_t secondpos = value.find("\"", firstpos+1);
+                    std::size_t firstPos = value.find("\"");
+                    std::size_t secondPos = value.find("\"", firstPos+1);
 
-                    fill = value.substr (firstpos+1, secondpos-firstpos-1);
+                    fill = value.substr (firstPos+1, secondPos-firstPos-1);
                 }
 
             }
             segment.setPoint1(Point(x1,y1));
             segment.setPoint2(Point(x2,y2));
             segment.setFill(fill);
-            dessin.formes.push_back(new Segment(segment));
+            drawing.listShapes.push_back(new Segment(segment));
         } else if (line.find("polygone") < line.size()){
-            Polygone polygone;
-            std::vector<Point*> listePoints;
+            Polygon polygon;
+            std::vector<Point*> listPoints;
             std::string fill;
 
             std::size_t pos = line.find("{");
-            std::string forme = line.substr(pos);
+            std::string shape = line.substr(pos);
 
-            std::istringstream iss(forme);
+            std::istringstream iss(shape);
             std::string property;
             while(getline(iss, property, ',')){
 
@@ -516,8 +513,8 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
                     std::string pointsList = getValue(property);
                     std::string posx, posy;
 
-                    std::size_t firstpos = pointsList.find("\"");
-                    pointsList = pointsList.substr (firstpos + 1);
+                    std::size_t firstPos = pointsList.find("\"");
+                    pointsList = pointsList.substr (firstPos + 1);
                     pointsList.pop_back();
 
                     int nbPoints = 0;
@@ -534,40 +531,36 @@ Dessin readJson(std::ifstream &fic){ //TODO CleanCode !!!!!
                         posy = pointsList.substr(0, posSpace);
                         pointsList = pointsList.substr(posSpace + 1);
 
-                        Point* point = new Point(std::stoi(posx), std::stoi(posy));
-                        listePoints.push_back(point);
+                        Point* point = new Point(std::stod(posx), std::stod(posy));
+                        listPoints.push_back(point);
                     }
 
                 } else if(property.find("fill") < property.size()){
                     std::string value = getValue(property);
 
-                    std::size_t firstpos = value.find("\"");
-                    std::size_t secondpos = value.find("\"", firstpos+1);
+                    std::size_t firstPos = value.find("\"");
+                    std::size_t secondPos = value.find("\"", firstPos+1);
 
-                    fill = value.substr (firstpos+1, secondpos-firstpos-1);
+                    fill = value.substr (firstPos+1, secondPos-firstPos-1);
                 }
 
             }
+            polygon.setListPoints(listPoints);
+            polygon.setFill(fill);
 
-            polygone.setListePoints(listePoints);
-            polygone.setFill(fill);
-
-            dessin.formes.push_back(new Polygone(polygone));
-
+            drawing.listShapes.push_back(new Polygon(polygon));
         }
-
     }
-    describeDessin(dessin);
-    return dessin;
+    describeDrawing(drawing);
+    return drawing;
 }
 
-Dessin openJson(const std::string& filename){
-    std::ifstream fic(filename, std::ios::in);
-
-    Dessin dessin = readJson(fic);
+Drawing openJson(const std::string& fileName){
+    std::ifstream fic(fileName, std::ios::in);
+    Drawing drawing = readJson(fic);
     fic.close();
 
-    return dessin;
+    return drawing;
 }
 
 bool verifyJson(const std::string& filename){
@@ -579,10 +572,9 @@ bool verifyJson(const std::string& filename){
     }
     std::cout<<"Fichier Introuvable"<<std::endl;
     return false;
-
 }
 
-Dessin affichermenucreation(Dessin &dessin){
+Drawing displayDrawingCreationMenu(Drawing &drawing){
     float height;
     float width;
     std::cout << "MENU CREATION DESSIN : \n" << std::endl;
@@ -590,78 +582,79 @@ Dessin affichermenucreation(Dessin &dessin){
     std::cin >> height;
     std::cout << "Largeur :" << std::endl;
     std::cin >> width ;
-    dessin.setHeight(height);
-    dessin.setWidth(width);
-    std::cout << "Hauteur : " << height << "Largeur : " << width << std::endl;
-    return dessin;
+    drawing.setHeight(height);
+    drawing.setWidth(width);
+    std::cout << "Hauteur : " << height << " Largeur : " << width << std::endl;
+    return drawing;
 }
 
-Dessin creationdessin(){
-    std::vector<Shape*> formes;
-    Dessin dessin = Dessin(formes);
-    affichermenucreation(dessin);
-    editionmenu(dessin);
-    return dessin;
+Drawing createDrawing(){
+    std::vector<Shape*> shapes;
+    Drawing drawing = Drawing(shapes);
+    displayDrawingCreationMenu(drawing);
+    drawingEditionMenu(drawing);
+    return drawing;
 }
 
-Dessin fusion(Dessin firstDrawing,Dessin secondDrawing){
-    std::vector<Shape*> formes;
+Drawing fusion(Drawing firstDrawing, Drawing secondDrawing){
     float maxheight;
     float maxwidth;
 
-    if(firstDrawing.height>secondDrawing.height){
+    if(firstDrawing.height > secondDrawing.height){
         maxheight = firstDrawing.height;
-    }else{
+    } else {
         maxheight = secondDrawing.height;
     }
-    if(firstDrawing.width>secondDrawing.width){
+    if(firstDrawing.width > secondDrawing.width){
         maxwidth = firstDrawing.width;
-    }else{
+    } else {
         maxwidth = secondDrawing.width;
     }
-    for (int i = 0; i < secondDrawing.formes.size(); ++i) {
-        firstDrawing.formes.push_back(secondDrawing.formes.at(i));
+    for (int i = 0; i < secondDrawing.listShapes.size(); ++i) {
+        firstDrawing.listShapes.push_back(secondDrawing.listShapes.at(i));
     }
 
-    Dessin dessin = Dessin(firstDrawing.formes,maxheight,maxwidth);
+    Drawing drawing = Drawing(firstDrawing.listShapes, maxheight, maxwidth);
 
-    return dessin;
+    return drawing;
 }
 
 void startprogram(){
-    int selection = 0;
+    int selection;
     bool selectable = false;
     while (!selectable){
-        affichemenu();
-        std::cin >> selection;
-        std::string filename;
-        std::string firstfile;
-        std::string secondfile;
+        displayPrincipalMenu();
+        char entry;
+        std::cin >> entry;
+        selection = checkEntry(entry);
+
+        std::string fileName;
+        std::string secondFileName;
         switch (selection) {
             case 1:
                 selectable = true;
-                creationdessin();
+                createDrawing();
                 break;
             case 2:
                 selectable = true;
                 std::cout<<"Veuillez saisir le nom du fichier :"<<std::endl;
-                std::cin>>filename;
-                if(verifyJson(filename)){
-                    Dessin dessin = openJson(filename);
-                    editionmenu(dessin);
+                std::cin >> fileName;
+                if(verifyJson(fileName)){
+                    Drawing drawing = openJson(fileName);
+                    drawingEditionMenu(drawing);
                 }
                 break;
             case 3:
                 selectable = true;
                 std::cout<<"Veuillez saisir le nom du 1er fichier :"<<std::endl;
-                std::cin>>firstfile;
+                std::cin >> fileName;
                 std::cout<<"Veuillez saisir le nom du 2nd fichier :"<<std::endl;
-                std::cin>>secondfile;
-                if(verifyJson(firstfile)&&verifyJson(secondfile)){
-                    Dessin firstdessin = openJson(firstfile);
-                    Dessin seconddessin = openJson(secondfile);
-                    Dessin dessin = fusion(firstdessin,seconddessin);
-                    editionmenu(dessin);
+                std::cin >> secondFileName;
+                if(verifyJson(fileName) && verifyJson(secondFileName)){
+                    Drawing firstDrawing = openJson(fileName);
+                    Drawing secondDrawing = openJson(secondFileName);
+                    Drawing drawing = fusion(firstDrawing, secondDrawing);
+                    drawingEditionMenu(drawing);
                 }
                 break;
             case 9:
@@ -674,9 +667,16 @@ void startprogram(){
     }
 }
 
+int checkEntry(char entry) {
+    if((int)entry >= 48 && (int)entry <= 57){
+        return entry - '0';
+    }
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    return 0;
+}
+
 int main() {
     std::cout << "SVG Creator\n" << std::endl;
-    std::cout << "\n" << std::endl;
     startprogram();
     return 0;
 }
